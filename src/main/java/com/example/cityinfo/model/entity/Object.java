@@ -119,9 +119,4 @@ public class Object extends BaseEntity{
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
-
-    public String test()
-    {
-        return "ivan";
-    }
 }
