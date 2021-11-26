@@ -1,22 +1,36 @@
 package com.example.cityinfo.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.example.cityinfo.model.entity.enums.UserRoleEnum;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
-public class Role extends BaseEntity{
-    private String name;
+public class Role{
 
-    public Role(){}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
-    public String getName(){
-        return name;
+    @Enumerated(EnumType.STRING)
+    private UserRoleEnum role;
+
+    public UserRoleEnum getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Role setRole(UserRoleEnum role) {
+        this.role = role;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Role setId(Long id) {
+        this.id = id;
+        return this;
     }
 }

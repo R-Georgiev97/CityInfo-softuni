@@ -1,10 +1,14 @@
 package com.example.cityinfo.model.entity;
 
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
+@Where(clause = "deleted_at is NULL")
 @Table(name = "categories")
 public class Category extends BaseEntity{
 
@@ -32,7 +36,9 @@ public class Category extends BaseEntity{
     public void setDescription(String description) {
         this.description = description;
     }
+
     @Column
+    @UpdateTimestamp
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }

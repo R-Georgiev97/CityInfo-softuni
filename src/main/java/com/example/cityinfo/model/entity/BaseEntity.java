@@ -1,5 +1,7 @@
 package com.example.cityinfo.model.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -23,6 +25,7 @@ public class BaseEntity {
     }
 
     @Column
+    @CreationTimestamp
     public LocalDateTime getCreatedAt(){
         return createdAt;
     }

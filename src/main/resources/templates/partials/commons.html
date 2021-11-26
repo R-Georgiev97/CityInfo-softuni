@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <title>City Info</title>
+</head>
+
+<header th:fragment="nav" class="d-flex justify-content-center">
+
+    <div class="d-flex justify-content-between container">
+        <select class="selectpicker form-control input-sm mt-2 col-sm-2" data-live-search="true" data-style="btn-info">
+            <option data-tokens="София">София</option>
+            <option data-tokens="Велико Търново">Велико Търново</option>
+            <option data-tokens="Русе">Русе</option>
+        </select>
+
+        <nav class="navbar navbar-expand-md  rounded">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Начало</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Обекти</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/about">Нов в града?</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <div class="form-inline my-2 my-lg-0 px-3">
+                            <div class="text-white">Welcome, <th:block sec:authentication="name"></th:block>!</div>
+                            <form th:action="@{/logout}" th:method="post">
+                                <input class="btn btn-link nav-link" type="submit" value="Изход">
+                            </form>
+                        </div>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}">Логин</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/register}">Регистрация</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+</header>
+
+<footer th:fragment="footer" class="d-flex justify-content-center fixed-bottom">
+    <p>"Сити Инфо" - Всички права запазени. Радостин Георгиев 2021</p>
+</footer>
+
+</body>
+</html>

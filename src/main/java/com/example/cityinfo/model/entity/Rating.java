@@ -1,5 +1,7 @@
 package com.example.cityinfo.model.entity;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -42,7 +44,9 @@ public class Rating extends BaseEntity{
     public void setObject(Object object) {
         this.object = object;
     }
+
     @Column
+    @UpdateTimestamp
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }

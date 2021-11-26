@@ -1,0 +1,18 @@
+body {
+    height: 100vh;
+}
+
+main {
+    background-color: lightcyan;
+    width: 80%;
+    height: 94vh;
+    display: block;
+    margin: 0 auto;
+}
+
+header {
+    background-color: lightskyblue;
+}
+footer {
+    background-color: lightskyblue;
+}

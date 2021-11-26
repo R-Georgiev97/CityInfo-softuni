@@ -1,5 +1,8 @@
 package com.example.cityinfo.model.entity;
 
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -7,6 +10,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
+@Where(clause = "deleted_at is NULL")
 @Table(name = "comments")
 public class Comment extends BaseEntity{
 
@@ -57,6 +61,7 @@ public class Comment extends BaseEntity{
     }
 
     @Column
+    @UpdateTimestamp
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
