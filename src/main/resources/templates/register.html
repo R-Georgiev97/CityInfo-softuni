@@ -10,7 +10,7 @@
     <div class="container">
         <h1 class="display-3">
             <div class=" pl-3 font-weight-bold text-center">
-                Register
+                Регистрация
             </div>
         </h1>
     </div>
@@ -25,7 +25,7 @@
                         class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
                     <div class="row">
                         <div class="form-group col-md-6 mb-3">
-                            <label for="firstName" class="font-weight-bold">First Name</label>
+                            <label for="firstName" class="font-weight-bold">Име</label>
                             <input
                                     id="firstName"
                                     th:field="*{firstName}"
@@ -34,11 +34,11 @@
                                     class="form-control"
                                     placeholder="First name"/>
                             <p class="invalid-feedback errors alert alert-danger">
-                                First name is required and should be between 4 and 20 symbols.
+                                Полето трябва да е между 4 и 15 символа.
                             </p>
                         </div>
                         <div class="form-group col-md-6 mb-3">
-                            <label for="lastName" class="font-weight-bold">Last Name</label>
+                            <label for="lastName" class="font-weight-bold">Фамилия</label>
                             <input id="lastName"
                                    name="lastName"
                                    th:field="*{lastName}"
@@ -46,13 +46,13 @@
                                    type="text" min="2" max="20" class="form-control"
                                    placeholder="Last name"/>
                             <p class="invalid-feedback errors alert alert-danger">
-                                Last name is required and should be between 4 and 20 symbols.
+                                Полето трябва да е между 4 и 15 символа.
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6 mb-3">
-                            <label for="username" class="font-weight-bold">Username</label>
+                            <label for="username" class="font-weight-bold">Потребителско име"</label>
                             <input id="username"
                                    name="username"
                                    th:field="*{username}"
@@ -61,11 +61,11 @@
                                    placeholder="Username"/>
                             <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                                class="invalid-feedback errors alert alert-danger">
-                                Username is required.
+                                Полето трябва да е между 4 и 15 символа.
                             </p>
                         </div>
                         <div class="form-group col-md-6 mb-3">
-                            <label for="email" class="font-weight-bold">Email</label>
+                            <label for="email" class="font-weight-bold">Имейл</label>
                             <input id="email"
                                    name="username"
                                    th:field="*{email}"
@@ -74,13 +74,13 @@
                                    placeholder="Email"/>
                             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                class="invalid-feedback errors alert alert-danger">
-                                Email is required.
+                                Задължително поле.
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6 mb-3">
-                            <label for="password" class="font-weight-bold">Password</label>
+                            <label for="password" class="font-weight-bold">Парола</label>
                             <input id="password"
                                    name="password"
                                    th:field="*{password}"
@@ -88,17 +88,17 @@
                                    type="password" min="2" max="20" class="form-control"
                                    placeholder="Password"/>
                             <p class="invalid-feedback errors alert alert-danger">
-                                Password is required.
+                                Задължително поле.
                             </p>
                         </div>
                         <div class="form-group col-md-6 mb-3">
-                            <label for="confirmPassword" class="font-weight-bold">Confirm Password</label>
+                            <label for="confirmPassword" class="font-weight-bold">Потвърди парола</label>
                             <input id="confirmPassword"
                                    th:field="*{confirmPassword}"
                                    type="password" min="2" max="20" class="form-control"
                                    placeholder="Confirm your password"/>
                             <p class="invalid-feedback errors alert alert-danger">
-                                Confirmation password is required.
+                                Задължително поле.
                             </p>
                         </div>
                     </div>

@@ -9,12 +9,12 @@
 <main role="main">
 <!--    TODO style and show errors -->
         <div class="container">
-            <h2 class="text-cente">Login</h2>
+            <h2 class="text-cente">Логин</h2>
             <form method="post"
                   th:action="@{/login}"
                   class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
                 <div class="form-group">
-                    <label for="username" class="font-weight-bold">Username</label>
+                    <label for="username" class="font-weight-bold">Потребителско име</label>
                     <input th:value="${username}"
                            id="username"
                            name="username"
@@ -23,7 +23,7 @@
                            placeholder="Username"/>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="font-weight-bold">Password</label>
+                    <label for="password" class="font-weight-bold">Парола</label>
                     <input
                             id="password"
                             name="password"
@@ -34,7 +34,7 @@
                 </div>
 
                 <p th:if="${bad_credentials}" class="errors alert alert-danger">
-                    Invalid username or password.
+                    Невалидно име или парола!
                 </p>
 
                 <div class="row">
