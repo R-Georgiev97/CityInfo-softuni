@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
     <meta charset="UTF-8"/>
@@ -31,10 +32,19 @@
                         <a class="nav-link" href="/">Начало</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Обекти</a>
+                        <a class="nav-link" href="/objects">Обекти</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/about">Нов в града?</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" href="/admin">Админ панел</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}">Логин</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/register}">Регистрация</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <div class="form-inline my-2 my-lg-0 px-3">
@@ -43,12 +53,6 @@
                                 <input class="btn btn-link nav-link" type="submit" value="Изход">
                             </form>
                         </div>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/login}">Логин</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/register}">Регистрация</a>
                     </li>
                 </ul>
             </div>

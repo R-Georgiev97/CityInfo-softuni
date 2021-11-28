@@ -13,6 +13,7 @@ import java.util.Set;
 public class Category extends BaseEntity{
 
     private String name;
+    private String slug;
     private String description;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
@@ -28,6 +29,16 @@ public class Category extends BaseEntity{
     public void setName(String name) {
         this.name = name;
     }
+
+    @Column(nullable = false)
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
     @Column(columnDefinition = "TEXT", nullable = false)
     public String getDescription() {
         return description;
