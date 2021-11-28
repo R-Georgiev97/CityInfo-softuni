@@ -1,5 +1,6 @@
 package com.example.cityinfo.web.admin;
 
+import com.example.cityinfo.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +12,15 @@ public class CategoryController {
 
     static final String TEMPLATE_DIRECTORY = "admin/categories/";
 
-    @GetMapping()
+    private final CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
+    @GetMapping("")
     public String index(Model model){
-        //TODO return all objects
+        model.addAttribute("categories",categoryService.getAllCategories());
         return TEMPLATE_DIRECTORY + "index";
     }
 

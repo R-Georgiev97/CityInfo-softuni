@@ -7,6 +7,40 @@
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
     <a class="nav-link" href="/admin/categories/create">Добави категория</a>
+    <div class="container col-md-8 border-dark">
+        <h1>Категории</h1>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Категория</th>
+                <th scope="col">Слъг</th>
+                <th scope="col">Опции</th>
+            </tr>
+            </thead>
+            <tbody class="table-hover">
+            <tr th:each="category : ${categories}" th:object="${category}">
+                <td><span th:text="*{name}"></span></td>
+                <td><span th:text="*{slug}"></span></td>
+                <td class="d-flex justify-content-end">
+                    <div class="col-md-3 d-flex justify-content-center" >
+                    <a th:href="@{/admin/categories/{id}(id=*{id})}" class="btn btn-outline-primary rounded" data-toggle="tooltip" data-placement="top" title="Редактирай">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-center">
+                    <form th:action="@{/admin/categories/{id}(id=*{id})}" th:method="delete" data-toggle="tooltip" data-placement="top" title="Изтрии">
+                        <button type="submit" class="btn btn-outline-primary rounded" >
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
 </main>
 <footer th:replace="partials/commons::footer">
 </footer>

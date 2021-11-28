@@ -5,6 +5,7 @@ import com.example.cityinfo.model.dto.CategorySeedDto;
 import com.example.cityinfo.model.entity.Category;
 
 import com.example.cityinfo.model.entity.CategoryField;
+import com.example.cityinfo.model.view.CategoryNameAndSlugView;
 import com.example.cityinfo.repository.CategoryFieldRepository;
 import com.example.cityinfo.repository.CategoryRepository;
 import com.example.cityinfo.service.CategoryService;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -41,6 +43,11 @@ public class CategoryServiceImpl implements CategoryService {
         this.validationUtil = validationUtil;
     }
 
+    /**
+     * Seed defaults categories with default category fields
+     * They can be edited in admin panel
+     * @throws IOException
+     */
     @Override
     public void seedCategoryWithFields() throws IOException {
         if (categoryRepository.count() > 0) {
@@ -59,6 +66,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     }
 
+    /**
+     * Set default fields to the category
+     * @param category
+     */
     public void addDefaultFields(Category category){
         if (this.defaultFields == null){
             this.defaultFields = new HashMap<>();
@@ -75,5 +86,18 @@ public class CategoryServiceImpl implements CategoryService {
             categoryField.setCategory(category);
             categoryFieldRepository.save(categoryField);
         });
+    }
+
+    /**
+     * Get all categories
+     * Returns only name and slug
+     */
+    @Override
+    public List<CategoryNameAndSlugView> getAllCategories() {
+        return categoryRepository
+                .findAll()
+                .stream()
+                .map(category -> modelMapper.map(category,CategoryNameAndSlugView.class))
+                .collect(Collectors.toList());
     }
 }
