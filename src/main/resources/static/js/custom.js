@@ -16,20 +16,9 @@ $(document).ready(function () {
     $(document).on('click', '.js-remove-field', function () {
         let fieldId = $(this).data('category_field_id')
         if (fieldId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    ajaxDelete("/admin/category-fields/" + fieldId)
+            confirmAndDelete("/admin/category-fields/" + fieldId)
+            $(this).parents("tr").remove()
 
-                }
-            })
         }
         $(this).parents('.js-fields-holder').remove()
     })
@@ -38,8 +27,9 @@ $(document).ready(function () {
 
     //ADMIN USERS
 
-    $('.js-users-del').on('click',function (){
+    $('.js-users-del').on('click', function () {
         let userId = $(this).data('user_id')
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -51,13 +41,23 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 ajaxPost("/admin/users/" + userId + "/delete", {})
-
+                $(this).parents("tr").remove()
             }
         })
     })
 
     //END ADMIN USERS
 
+    //ADMIN CITIEs
+
+    $('.js-city_del').on('click', function () {
+        let cityId = $(this).data('city_id')
+        confirmAndDelete("/admin/cities/" + cityId)
+        $(this).parents("tr").remove()
+
+    })
+
+    //END CITIES
 
     //GENERAL
     $('.js-admin-index-delete-entity-form').on('submit', function (e) {
@@ -72,11 +72,26 @@ $(document).ready(function () {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-               $(this).unbind('submit').submit()
+                $(this).unbind('submit').submit()
             }
         })
     })
 });
 
+function confirmAndDelete(url) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            ajaxDelete(url)
+        }
+    })
+}
 
 

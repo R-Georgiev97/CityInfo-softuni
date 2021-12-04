@@ -1,8 +1,7 @@
 package com.example.cityinfo.service.impl;
 
-import com.example.cityinfo.model.dto.CategorySeedDto;
+import com.example.cityinfo.model.binding.CityBindingModel;
 import com.example.cityinfo.model.dto.CitySeedDto;
-import com.example.cityinfo.model.entity.Category;
 import com.example.cityinfo.model.entity.City;
 import com.example.cityinfo.repository.CityRepository;
 import com.example.cityinfo.service.CityService;
@@ -15,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CityServiceImpl implements CityService {
@@ -34,13 +35,32 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public void seedCities() throws IOException {
-        Arrays.stream(gson.fromJson(
-                        Files.readString(Path.of(CITIES_FILE_NAME)),
-                        CitySeedDto[].class))
-                .filter(validationUtil::isValid)
-                .map(citySeedDto -> modelMapper.map(citySeedDto, City.class))
-                .forEach(cityRepository::save);
+    public void destroy(Long id) {
+        cityRepository.deleteById(id);
+    }
 
+    @Override
+    public void seedCities() throws IOException {
+        if (cityRepository.count() == 0) {
+            Arrays.stream(gson.fromJson(
+                            Files.readString(Path.of(CITIES_FILE_NAME)),
+                            CitySeedDto[].class))
+                    .filter(validationUtil::isValid)
+                    .map(citySeedDto -> modelMapper.map(citySeedDto, City.class))
+                    .forEach(cityRepository::save);
+        }
+    }
+
+    @Override
+    public List<CityBindingModel> getAllCities() {
+        return cityRepository.findAll().stream()
+                .map(city -> modelMapper.map(city, CityBindingModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void store(CityBindingModel cityBindingModel) {
+        City city = modelMapper.map(cityBindingModel, City.class);
+        cityRepository.save(city);
     }
 }

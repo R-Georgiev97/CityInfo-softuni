@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/commons::head"></head>
+<body>
+<header th:replace="partials/commons::nav"></header>
+<main role="main">
+    <a class="nav-link" href="/admin/cities/create">Добави град</a>
+    <div class="container col-md-8 border-dark">
+        <h1>Градове</h1>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Град</th>
+                <th scope="col" class="d-flex justify-content-end">Опции</th>
+            </tr>
+            </thead>
+            <tbody class="table-hover">
+            <tr th:each="city : ${cities}" th:object="${city}">
+                <td><span th:text="*{name}"></span></td>
+                <td class="d-flex justify-content-end">
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-primary rounded-circle js-city_del" data-toggle="tooltip"
+                                data-placement="top" title="Изтрии" th:attr="data-city_id=*{id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="partials/commons::footer">
+</footer>
+</body>
+</html>
