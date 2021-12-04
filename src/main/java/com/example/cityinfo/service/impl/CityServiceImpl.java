@@ -1,0 +1,46 @@
+package com.example.cityinfo.service.impl;
+
+import com.example.cityinfo.model.dto.CategorySeedDto;
+import com.example.cityinfo.model.dto.CitySeedDto;
+import com.example.cityinfo.model.entity.Category;
+import com.example.cityinfo.model.entity.City;
+import com.example.cityinfo.repository.CityRepository;
+import com.example.cityinfo.service.CityService;
+import com.example.cityinfo.util.ValidationUtil;
+import com.google.gson.Gson;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
+
+@Service
+public class CityServiceImpl implements CityService {
+
+    private static final String CITIES_FILE_NAME = "src/main/resources/files/cities.json";
+
+    private final Gson gson;
+    private final ValidationUtil validationUtil;
+    private final ModelMapper modelMapper;
+    private final CityRepository cityRepository;
+
+    public CityServiceImpl(Gson gson, ValidationUtil validationUtil, ModelMapper modelMapper, CityRepository cityRepository) {
+        this.gson = gson;
+        this.validationUtil = validationUtil;
+        this.modelMapper = modelMapper;
+        this.cityRepository = cityRepository;
+    }
+
+    @Override
+    public void seedCities() throws IOException {
+        Arrays.stream(gson.fromJson(
+                        Files.readString(Path.of(CITIES_FILE_NAME)),
+                        CitySeedDto[].class))
+                .filter(validationUtil::isValid)
+                .map(citySeedDto -> modelMapper.map(citySeedDto, City.class))
+                .forEach(cityRepository::save);
+
+    }
+}
