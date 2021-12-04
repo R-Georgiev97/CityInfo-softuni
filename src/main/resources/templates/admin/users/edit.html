@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/commons::head"></head>
+<body>
+<header th:replace="partials/commons::nav"></header>
+<main role="main">
+    <div class="container col-md-8 border-dark">
+        <h2 class="text-center">Редактирай потребител</h2>
+        <form th:object="${userEditBindingModel}" th:action="@{/admin/users/{id}/edit(id=*{id})}" th:method="PUT"
+              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+
+            <div class="row form-group">
+                <div class="col-md-6 p-0 pr-2">
+                    <label for="firstname" class="font-weight-bold">Име</label>
+                    <input th:field="*{firstName}" th:errorclass="is-invalid" name="firstname"
+                           id="firstname" class="form-control"
+                           placeholder="Име"/>
+                    <p class="errors alert alert-danger invalid-feedback" th:errors="*{firstName}">
+                        Полето трябва да е между 4 и 20 символа.
+                    </p>
+                </div>
+                <div class="col-md-6 p-0 pl-2">
+                    <label for="lastname" class="font-weight-bold">Фамилия</label>
+                    <input th:field="*{lastName}" th:errorclass="is-invalid" name="lastname"
+                           id="lastname" class="form-control"
+                           placeholder="lastname"/>
+                    <p class="errors alert alert-danger invalid-feedback">
+                        Полето трябва да е между 4 и 20 символа.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6 p-0 pr-2">
+                    <label for="username" class="font-weight-bold">Потребителско име</label>
+                    <input th:field="*{username}" th:errorclass="is-invalid" name="username"
+                           id="username" class="form-control"
+                           placeholder="Потребитрелско име"/>
+                    <p class="errors alert alert-danger invalid-feedback">
+                        Полето трябва да е между 4 и 20 символа.
+                    </p>
+                </div>
+                <div class="col-md-6 p-0 pl-2">
+                    <label for="lastname" class="font-weight-bold">Емайл</label>
+                    <input th:field="*{email}" th:errorclass="is-invalid" name="email"
+                           id="email" class="form-control"
+                           placeholder="Емайл"/>
+                    <p class="errors alert alert-danger invalid-feedback">
+                        Полето трябва да е валиден емейл адрес
+                    </p>
+                </div>
+            </div>
+            <div class="row form-group" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="col-md-6 p-0 pl-2">
+                    <label class="text-center font-weight-bold" for="roleName">Роля</label>
+                    <select th:errorclass="is-invalid" id="roleName" name="roleName" class="form-control p-0">
+                        <option th:each="role : ${T(com.example.cityinfo.model.entity.enums.UserRoleEnum).values()}"
+                                th:text="${role}" th:value="${role}" th:selected="${role} == *{roleName}"
+                        >Роля
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Запази"/>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</main>
+<footer th:replace="partials/commons::footer">
+</footer>
+</body>
+</html>

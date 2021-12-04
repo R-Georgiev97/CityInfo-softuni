@@ -1,7 +1,4 @@
-import {ajaxDelete} from "./ajax.js";
-
-
-const host = "http://localhost:8080"
+import {ajaxDelete, ajaxPost} from "./ajax.js";
 
 $(document).ready(function () {
     //ADMIN CATEGORIES
@@ -9,7 +6,7 @@ $(document).ready(function () {
     $('.js-add-field').click(function () {
         let fieldsHolder = $('.js-fields-holder-disabled ').clone();
         fieldsHolder.removeClass("d-none js-fields-holder-disabled").addClass("d-flex")
-        fieldsHolder.find('.form-control').each((index,field) => {
+        fieldsHolder.find('.form-control').each((index, field) => {
             $(field).removeAttr('disabled')
         })
         $('.fields-container').append(fieldsHolder)
@@ -29,7 +26,8 @@ $(document).ready(function () {
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    ajaxDelete("/admin/category-fields/"+fieldId);
+                    ajaxDelete("/admin/category-fields/" + fieldId)
+
                 }
             })
         }
@@ -37,4 +35,48 @@ $(document).ready(function () {
     })
 
     //END ADMIN CATEGORIES
+
+    //ADMIN USERS
+
+    $('.js-users-del').on('click',function (){
+        let userId = $(this).data('user_id')
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                ajaxPost("/admin/users/" + userId + "/delete", {})
+
+            }
+        })
+    })
+
+    //END ADMIN USERS
+
+
+    //GENERAL
+    $('.js-admin-index-delete-entity-form').on('submit', function (e) {
+        e.preventDefault()
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+               $(this).unbind('submit').submit()
+            }
+        })
+    })
 });
+
+
+

@@ -1,8 +1,8 @@
+import swalSuccess from "./sweet_alert.js";
+
 const token = $("input[name='_csrf']").val()
-const header = $("meta[name='_csrf_header']").attr("content");
 
-
-export async function ajaxDelete(url){
+export function ajaxDelete(url){
     $.ajax({
         type:'DELETE',
         url : url,
@@ -14,13 +14,28 @@ export async function ajaxDelete(url){
             "Content-Type": "application/json"
         },
         success : function(result) {
-            swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Deleted',
-                showConfirmButton: false,
-                timer: 2000
-            })
+            swalSuccess("Deleted")
+        },
+        error : function(e) {
+            alert("Error!")
+        }
+    })
+}
+
+export function ajaxPost(url, data){
+    $.ajax({
+        type:'POST',
+        url : url,
+        xhrFields: {
+            withCredentials: true,
+        },
+        data: data,
+        headers: {
+            "X-CSRF-TOKEN" : token,
+            "Content-Type": "application/json"
+        },
+        success : function(result) {
+            swalSuccess("Success")
         },
         error : function(e) {
             alert("Error!")

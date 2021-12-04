@@ -6,7 +6,7 @@ public interface CategoryFieldService {
 
     void store(String name, String slug, Category category);
 
-    void sync(String[] fieldNames, String[] fieldSlugs, Category category);
+    void storeMultiple(String[] fieldNames, String[] fieldSlugs, Category category);
 
     boolean isSlugFree(String slug,Category category);
 

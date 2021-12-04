@@ -1,6 +1,7 @@
 package com.example.cityinfo.model.binding;
 
 
+import com.example.cityinfo.model.validator.UniqueUserEmail;
 import com.example.cityinfo.model.validator.UniqueUserUsername;
 
 import javax.validation.constraints.Email;
@@ -20,6 +21,7 @@ public class UserRegistrationBindingModel {
 
     @NotNull
     @Email
+    @UniqueUserEmail
     private String email;
 
     @NotNull

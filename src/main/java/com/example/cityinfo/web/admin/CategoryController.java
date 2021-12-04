@@ -49,6 +49,7 @@ public class CategoryController {
                         BindingResult bindingResult,
                         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
+
             redirectAttributes.addFlashAttribute("categoryBindingModel", categoryBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.categoryBindingModel", bindingResult);
             return "redirect:/" + TEMPLATE_DIRECTORY + "/create";
@@ -60,7 +61,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(@PathVariable Long id, CategoryFieldBindingModel categoryFieldBindingModel, Model model) {
+    public String edit(@PathVariable Long id, Model model) {
         CategoryBindingModel categoryBindingModel = categoryService.getCategoryBindingModel(id);
 
         model.addAttribute("categoryBindingModel", categoryBindingModel);

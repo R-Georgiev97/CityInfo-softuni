@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/commons::head"></head>
+<body>
+<header th:replace="partials/commons::nav"></header>
+<main role="main">
+    <div class="container col-md-8 border-dark">
+        <h1>Потребители</h1>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Потребителско име</th>
+                <th scope="col">Емайл</th>
+                <th scope="col">Име и фамилия</th>
+                <th scope="col">Роля</th>
+                <th scope="col">Опции</th>
+
+            </tr>
+            </thead>
+            <tbody class="table-hover">
+            <tr th:each="user : ${users}" th:object="${user}">
+                <td><span th:text="*{username}"></span></td>
+                <td><span th:text="*{email}"></span></td>
+                <td><span th:text="*{fullName}"></span></td>
+                <td><span th:text="*{role}"></span></td>
+                <td class="d-flex justify-content-end">
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <a th:href="@{/admin/users/{id}/edit(id=*{id})}" class="btn btn-outline-primary rounded-circle"
+                           data-toggle="tooltip" data-placement="top" title="Редактирай">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-outline-primary rounded-circle js-users-del" data-toggle="tooltip"
+                                data-placement="top" title="Изтрии" th:attr="data-user_id=*{id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="partials/commons::footer">
+</footer>
+</body>
+</html>

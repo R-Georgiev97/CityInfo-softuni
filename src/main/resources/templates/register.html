@@ -43,7 +43,7 @@
                                    name="lastName"
                                    th:field="*{lastName}"
                                    th:errorclass="is-invalid"
-                                   type="text" min="2" max="20" class="form-control"
+                                   type="text" class="form-control"
                                    placeholder="Last name"/>
                             <p class="invalid-feedback errors alert alert-danger">
                                 Полето трябва да е между 4 и 15 символа.
@@ -57,7 +57,7 @@
                                    name="username"
                                    th:field="*{username}"
                                    th:errorclass="is-invalid"
-                                   type="text" min="2" max="20" class="form-control"
+                                   type="text" class="form-control"
                                    placeholder="Username"/>
                             <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                                class="invalid-feedback errors alert alert-danger">
@@ -70,7 +70,7 @@
                                    name="username"
                                    th:field="*{email}"
                                    th:errorclass="is-invalid"
-                                   type="text" min="2" max="20" class="form-control"
+                                   type="text" class="form-control"
                                    placeholder="Email"/>
                             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                class="invalid-feedback errors alert alert-danger">
@@ -85,7 +85,7 @@
                                    name="password"
                                    th:field="*{password}"
                                    th:errorclass="is-invalid"
-                                   type="password" min="2" max="20" class="form-control"
+                                   type="password" class="form-control"
                                    placeholder="Password"/>
                             <p class="invalid-feedback errors alert alert-danger">
                                 Задължително поле.
@@ -95,7 +95,7 @@
                             <label for="confirmPassword" class="font-weight-bold">Потвърди парола</label>
                             <input id="confirmPassword"
                                    th:field="*{confirmPassword}"
-                                   type="password" min="2" max="20" class="form-control"
+                                   type="password" class="form-control"
                                    placeholder="Confirm your password"/>
                             <p class="invalid-feedback errors alert alert-danger">
                                 Задължително поле.

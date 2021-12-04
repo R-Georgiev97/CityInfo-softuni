@@ -40,10 +40,8 @@ public class CategoryFieldServiceImpl implements CategoryFieldService {
     }
 
     @Override
-    @PreRemove
-    public void sync(String[] fieldNames, String[] fieldSlugs, Category category) {
+    public void storeMultiple(String[] fieldNames, String[] fieldSlugs, Category category) {
         if (fieldNames.length == fieldSlugs.length) {
-            categoryFieldRepository.deleteAll(category.getCategoryFields());
             for (int i = 0; i < fieldNames.length; i++) {
                 String name = fieldNames[i];
                 String slug = fieldSlugs[i];

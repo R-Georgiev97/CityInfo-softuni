@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Where(clause = "deleted_at is NULL")
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     private String username;
     private String firstName;
@@ -24,9 +24,9 @@ public class User extends BaseEntity{
     private City city;
     private Role role;
 
-    public User()
-    {
+    public User() {
     }
+
     @Column(nullable = false)
     public String getUsername() {
         return username;
@@ -36,6 +36,7 @@ public class User extends BaseEntity{
         this.username = username;
         return this;
     }
+
     @Column
     public String getFirstName() {
         return firstName;
@@ -45,6 +46,7 @@ public class User extends BaseEntity{
         this.firstName = firstName;
         return this;
     }
+
     @Column
     public String getLastName() {
         return lastName;
@@ -85,6 +87,7 @@ public class User extends BaseEntity{
         this.updatedAt = updatedAt;
         return this;
     }
+
     @Column
     public LocalDateTime getDeletedAt() {
         return deletedAt;
@@ -104,11 +107,11 @@ public class User extends BaseEntity{
     }
 
     @ManyToOne
-    public Role getRole(){
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Role role){
+    public void setRole(Role role) {
         this.role = role;
     }
 }

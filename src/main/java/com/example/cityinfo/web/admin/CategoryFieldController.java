@@ -18,7 +18,7 @@ public class CategoryFieldController {
         this.categoryFieldService = categoryFieldService;
     }
 
-    @DeleteMapping( value = "/{id}", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public void destroy(@PathVariable Long id, HttpServletResponse response ) {
         categoryFieldService.destroy(id);
          response.setStatus(200);

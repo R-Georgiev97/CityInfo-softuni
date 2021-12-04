@@ -113,7 +113,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category store(CategoryBindingModel categoryBindingModel) {
         Category category = modelMapper.map(categoryBindingModel, Category.class);
         categoryRepository.save(category);
-        categoryFieldService.sync(categoryBindingModel.getFieldNames(), categoryBindingModel.getFieldSlugs(), category);
+        categoryFieldService.storeMultiple(categoryBindingModel.getFieldNames(), categoryBindingModel.getFieldSlugs(), category);
 
         return category;
     }
@@ -128,7 +128,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setSlug(categoryBindingModel.getSlug());
         category.setDescription(categoryBindingModel.getDescription());
 
-        categoryFieldService.sync(categoryBindingModel.getFieldNames(), categoryBindingModel.getFieldSlugs(), category);
+        categoryFieldService.storeMultiple(categoryBindingModel.getFieldNames(), categoryBindingModel.getFieldSlugs(), category);
         categoryRepository.save(category);
         return category;
     }

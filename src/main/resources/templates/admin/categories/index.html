@@ -29,7 +29,11 @@
                     </a>
                     </div>
                     <div class="col-md-3 d-flex justify-content-center">
-                    <form th:action="@{/admin/categories/{id}(id=*{id})}" th:method="delete" data-toggle="tooltip" data-placement="top" title="Изтрии">
+                    <form th:action="@{/admin/categories/{id}(id=*{id})}" th:method="delete"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                          title="Изтрии"
+                          class="js-admin-index-delete-entity-form">
                         <button type="submit" class="btn btn-outline-primary rounded-circle" >
                             <i class="fas fa-trash"></i>
                         </button>

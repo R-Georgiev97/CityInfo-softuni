@@ -41,18 +41,11 @@
                 <input name="field_name[]" disabled
                        id="field_name" class="form-control"
                        placeholder="Категрия"/>
-                <p class="errors alert alert-danger invalid-feedback">
-                    Полето трябва да е между 4 и 15 символа.
-                </p>
             </div>
             <div class="col-md-4 p-0 pl-2">
                 <label for="field_slug" class="font-weight-bold">Слъг</label>
                 <input name="field_slug[]" disabled
-                       id="field_slug" class="form-control"
-                       placeholder="Слъг"/>
-                <p class="errors alert alert-danger invalid-feedback">
-                    Полето трябва да е между 4 и 15 символа.
-                </p>
+                       id="field_slug" class="form-control">
             </div>
             <div class="pt-4">
                 <button type="button" class="btn btn-outline-danger rounded-circle js-remove-field"
@@ -70,18 +63,12 @@
                 <input name="field_name[]" th:value="${categoryFieldBindingModel.getName()}"
                        id="field_name" class="form-control"
                        placeholder="Категрия"/>
-                <p class="errors alert alert-danger invalid-feedback">
-                    Полето трябва да е между 4 и 15 символа.
-                </p>
             </div>
             <div class="col-md-4 p-0 pl-2">
                 <label for="field_slug" class="font-weight-bold">Слъг</label>
                 <input name="field_slug[]"  th:value="${categoryFieldBindingModel.getSlug()}"
                        id="field_slug" class="form-control"
                        placeholder="Слъг"/>
-                <p class="errors alert alert-danger invalid-feedback">
-                    Полето трябва да е между 4 и 15 символа.
-                </p>
             </div>
             <div class="pt-4">
                 <button type="button" class="btn btn-outline-danger rounded-circle js-remove-field" th:attr="data-category_field_id=${categoryFieldBindingModel.getId}"
