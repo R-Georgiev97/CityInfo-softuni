@@ -24,13 +24,13 @@
                 <td><span th:text="*{slug}"></span></td>
                 <td class="d-flex justify-content-end">
                     <div class="col-md-3 d-flex justify-content-center" >
-                    <a th:href="@{/admin/categories/{id}(id=*{id})}" class="btn btn-outline-primary rounded" data-toggle="tooltip" data-placement="top" title="Редактирай">
+                    <a th:href="@{/admin/categories/{id}/edit(id=*{id})}" class="btn btn-outline-primary rounded-circle" data-toggle="tooltip" data-placement="top" title="Редактирай">
                         <i class="fas fa-edit"></i>
                     </a>
                     </div>
                     <div class="col-md-3 d-flex justify-content-center">
                     <form th:action="@{/admin/categories/{id}(id=*{id})}" th:method="delete" data-toggle="tooltip" data-placement="top" title="Изтрии">
-                        <button type="submit" class="btn btn-outline-primary rounded" >
+                        <button type="submit" class="btn btn-outline-primary rounded-circle" >
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>

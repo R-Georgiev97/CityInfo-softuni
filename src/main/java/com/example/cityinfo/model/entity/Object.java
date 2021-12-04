@@ -5,6 +5,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,7 @@ public class Object extends BaseEntity{
     private Boolean status;
     private Double averageRating;
     private Category category;
-    private Set<ObjectData> objectData;
+    private List<ObjectData> objectData;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
     private City city;
@@ -88,11 +89,11 @@ public class Object extends BaseEntity{
     }
 
     @OneToMany(mappedBy = "object", fetch = FetchType.EAGER)
-    public Set<ObjectData> getObjectData() {
+    public List<ObjectData> getObjectData() {
         return objectData;
     }
 
-    public void setObjectData(Set<ObjectData> objectData) {
+    public void setObjectData(List<ObjectData> objectData) {
         this.objectData = objectData;
     }
 

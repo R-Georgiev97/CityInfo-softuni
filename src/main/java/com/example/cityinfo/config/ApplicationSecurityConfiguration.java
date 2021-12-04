@@ -1,5 +1,6 @@
 package com.example.cityinfo.config;
 
+import com.example.cityinfo.service.CategoryService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

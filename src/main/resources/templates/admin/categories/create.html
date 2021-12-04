@@ -2,50 +2,21 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/commons::head"></head>
+<head th:include="partials/commons::head">
+    <script src="/js/categories.js" type="module"></script>
+</head>
 <body>
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
-    <div class="container col-md-8 border-dark">
+    <div class="container col-md-10 border-dark">
         <h2 class="text-center">Добави категория</h2>
-        <form th:action="@{/аdmin/categories}" th:object="${categoryStoreBindingModel}" th:method="POST"
+        <form th:action="@{/admin/categories}"  th:method="POST" th:object="${categoryBindingModel}"
               class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-            <div class="row form-group">
-                <div class="col-md-6 p-0">
-                    <label for="name" class="font-weight-bold">Категория</label>
-                    <input th:field="*{name}" th:errorclass="is-invalid" name="name"
-                           id="name" class="form-control"
-                           placeholder="Категрия"/>
-                    <p class="errors alert alert-danger invalid-feedback">
-                        Полето трябва да е между 4 и 15 символа.
-                    </p>
-                </div>
-                <div class="col-md-6 p-0">
-                    <label for="name" class="font-weight-bold">Слъг</label>
-                    <input th:field="*{slug}" th:errorclass="is-invalid" name="slug"
-                           id="slug" class="form-control"
-                           placeholder="Слъг"/>
-                    <p class="errors alert alert-danger invalid-feedback">
-                        Полето трябва да е между 4 и 15 символа.
-                    </p>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="description" class="font-weight-bold">Описание</label>
-                <textarea th:field="*{description}" th:errorclass="is-invalid"
-                          class="form-control" id="description" rows="3" name="description">
-                </textarea>
-                <p class="errors alert alert-danger invalid-feedback">
-                    Полето трябва да е между 4 и 15 символа.
-                </p>
-            </div>
-            <div class="row">
-                <div class="col col-md-4">
-                    <div class="button-holder d-flex">
-                        <input type="submit" class="btn btn-info btn-lg" value="Запази"/>
-                    </div>
-                </div>
-            </div>
+           <div th:replace="admin/categories/partials/form::category-fields">
+
+           </div>
+            <div th:replace="admin/categories/partials/form::buttons"></div>
+
         </form>
     </div>
 </main>

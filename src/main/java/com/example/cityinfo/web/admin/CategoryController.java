@@ -1,23 +1,25 @@
 package com.example.cityinfo.web.admin;
 
-import com.example.cityinfo.model.binding.CategoryStoreBindingModel;
+import com.example.cityinfo.model.binding.CategoryBindingModel;
+import com.example.cityinfo.model.binding.CategoryFieldBindingModel;
+
 import com.example.cityinfo.service.CategoryService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/admin/categories")
 public class CategoryController {
 
-    static final String TEMPLATE_DIRECTORY = "admin/categories/";
+    static final String TEMPLATE_DIRECTORY = "admin/categories";
 
     private final CategoryService categoryService;
 
@@ -25,33 +27,68 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("")
-    public String index(Model model){
-        model.addAttribute("categories",categoryService.getAllCategories());
-        return TEMPLATE_DIRECTORY + "index";
+    @GetMapping()
+    public String index(Model model) {
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return TEMPLATE_DIRECTORY + "/index";
     }
 
     @GetMapping("/create")
-    public String create(Model model){
-        if (!model.containsAttribute("categoryStoreBindingModel")) {
+    public String create(Model model) {
+        if (!model.containsAttribute("categoryBindingModel")) {
             model.
-                    addAttribute("categoryStoreBindingModel", new CategoryStoreBindingModel());
+                    addAttribute("categoryBindingModel", new CategoryBindingModel());
         }
-        return TEMPLATE_DIRECTORY + "create";
+        return TEMPLATE_DIRECTORY + "/create";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("")
-    public String store(@Valid CategoryStoreBindingModel categoryStoreBindingModel,
+    @PostMapping()
+    public String store(@Valid CategoryBindingModel categoryBindingModel,
+                        @RequestParam(value = "field_name[]") String[] fieldNames,
+                        @RequestParam(value = "field_slug[]") String[] fieldSlugs,
                         BindingResult bindingResult,
-                        RedirectAttributes redirectAttributes){
+                        RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("categoryStoreBindingModel", categoryStoreBindingModel)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.categoryStoreBindingModel", bindingResult);
-            return "redirect:/"+ TEMPLATE_DIRECTORY + "create";
+            redirectAttributes.addFlashAttribute("categoryBindingModel", categoryBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.categoryBindingModel", bindingResult);
+            return "redirect:/" + TEMPLATE_DIRECTORY + "/create";
         }
-
-        return "redirect:/"+TEMPLATE_DIRECTORY;
+        categoryBindingModel.setFieldNames(fieldNames);
+        categoryBindingModel.setFieldSlugs(fieldSlugs);
+        categoryService.store(categoryBindingModel);
+        return "redirect:/" + TEMPLATE_DIRECTORY;
     }
 
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, CategoryFieldBindingModel categoryFieldBindingModel, Model model) {
+        CategoryBindingModel categoryBindingModel = categoryService.getCategoryBindingModel(id);
+
+        model.addAttribute("categoryBindingModel", categoryBindingModel);
+        model.addAttribute("categoryFieldsBindingModels", categoryBindingModel.getCategoryFields());
+        return TEMPLATE_DIRECTORY + "/edit";
+    }
+
+    @PutMapping("/{id}/edit")
+    public String update(@PathVariable Long id,
+                         @Valid CategoryBindingModel categoryBindingModel,
+                         @RequestParam(value = "field_name[]") String[] fieldNames,
+                         @RequestParam(value = "field_slug[]") String[] fieldSlugs,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes) throws Exception {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("categoryBindingModel", categoryBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.categoryBindingModel", bindingResult);
+            return "redirect:/" + TEMPLATE_DIRECTORY + categoryBindingModel.getId() +"/edit";
+        }
+        categoryBindingModel.setFieldNames(fieldNames);
+        categoryBindingModel.setFieldSlugs(fieldSlugs);
+        categoryService.update(categoryBindingModel);
+        return "redirect:/" + TEMPLATE_DIRECTORY;
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) throws Exception {
+        categoryService.delete(id);
+        return "redirect:/" + TEMPLATE_DIRECTORY;
+    }
 }

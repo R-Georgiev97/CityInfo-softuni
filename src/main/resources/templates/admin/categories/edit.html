@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/commons::head"></head>
+<body>
+<header th:replace="partials/commons::nav"></header>
+<main role="main">
+    <div class="container col-md-8 border-dark">
+        <h2 class="text-center">Редактирай категория</h2>
+        <form th:action="@{/admin/categories/{id}/edit(id=*{id})}"  th:method="PUT" th:object="${categoryBindingModel}"
+              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+            <div th:replace="admin/categories/partials/form::category-fields">
+            </div>
+
+            <div th:replace="admin/categories/partials/form::buttons"></div>
+
+        </form>
+    </div>
+</main>
+<footer th:replace="partials/commons::footer">
+</footer>
+</body>
+</html>

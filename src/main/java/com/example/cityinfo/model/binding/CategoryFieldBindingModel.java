@@ -3,17 +3,22 @@ package com.example.cityinfo.model.binding;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class CategoryStoreBindingModel {
-
+public class CategoryFieldBindingModel {
+    private Long id;
     @NotNull
-    @Size(min=4, max=20)
+    @Size(min = 3, max = 20)
     private String name;
     @NotNull
-    @Size(min=4, max=20)
+    @Size(min = 3, max = 20)
     private String slug;
-    @NotNull
-    @Size(min=4, max=20)
-    private String description;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -31,11 +36,4 @@ public class CategoryStoreBindingModel {
         this.slug = slug;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
