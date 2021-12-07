@@ -2,6 +2,7 @@ package com.example.cityinfo.service;
 
 
 import com.example.cityinfo.model.binding.CategoryBindingModel;
+import com.example.cityinfo.model.binding.CategoryFieldBindingModel;
 import com.example.cityinfo.model.entity.Category;
 import com.example.cityinfo.model.view.CategoryNameAndSlugView;
 
@@ -20,4 +21,6 @@ public interface CategoryService {
     CategoryBindingModel getCategoryBindingModel(Long id);
 
     Category update(CategoryBindingModel categoryStoreBindingModel) throws Exception;
+
+    List<CategoryFieldBindingModel> getFieldsByCategorySlug(String slug);
 }

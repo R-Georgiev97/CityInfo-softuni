@@ -1,6 +1,26 @@
-import swalSuccess from "./sweet_alert.js";
+import {swalSuccess, swalError} from "./sweet_alert.js";
 
 const token = $("input[name='_csrf']").val()
+
+export function ajaxGet(url, callback){
+    $.ajax({
+        type:'GET',
+        url : url,
+        xhrFields: {
+            withCredentials: true,
+        },
+        headers: {
+            "X-CSRF-TOKEN" : token,
+            "Content-Type": "application/json"
+        },
+        success : function (result) {
+            callback(result);
+        },
+        error : function(e) {
+            swalError()
+        }
+    })
+}
 
 export function ajaxDelete(url){
     $.ajax({
@@ -17,7 +37,7 @@ export function ajaxDelete(url){
             swalSuccess("Deleted")
         },
         error : function(e) {
-            alert("Error!")
+            swalError()
         }
     })
 }
@@ -38,7 +58,7 @@ export function ajaxPost(url, data){
             swalSuccess("Success")
         },
         error : function(e) {
-            alert("Error!")
+            swalError()
         }
     })
 }

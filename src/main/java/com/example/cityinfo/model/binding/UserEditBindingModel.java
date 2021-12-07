@@ -1,10 +1,8 @@
 package com.example.cityinfo.model.binding;
 
 import com.example.cityinfo.model.entity.enums.UserRoleEnum;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import javax.validation.constraints.*;
 
 public class UserEditBindingModel {
 
@@ -18,7 +16,7 @@ public class UserEditBindingModel {
     @Size(min = 4, max = 20)
     private String lastName;
 
-    @NotNull
+    @NotEmpty
     @Email
     private String email;
 
@@ -32,47 +30,58 @@ public class UserEditBindingModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public UserEditBindingModel setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public UserEditBindingModel setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
+
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public UserEditBindingModel setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public UserEditBindingModel setEmail(String email) {
         this.email = email;
+        return this;
+
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public UserEditBindingModel setUsername(String username) {
         this.username = username;
+        return this;
+
     }
 
     public UserRoleEnum getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(UserRoleEnum roleName) {
+    public UserEditBindingModel setRoleName(UserRoleEnum roleName) {
         this.roleName = roleName;
+        return this;
+
     }
 }

@@ -33,6 +33,11 @@ public class UserController {
         return TEMPLATE_DIRECTORY + "/index";
     }
 
+    @ModelAttribute("userEditBindingModel")
+    public UserEditBindingModel userEditBindingModel() {
+        return new UserEditBindingModel();
+    }
+
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model) throws Exception {
         UserEditBindingModel userEditBindingModel = userService.getUserEditBindingModel(id);

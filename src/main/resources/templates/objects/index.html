@@ -6,7 +6,7 @@
 <body>
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
-    <a class="nav-link" href="/objects/create">Добави обект</a>
+    <a class="nav-link" href="/objects/create" sec:authorize="isAuthenticated()">Добави обект</a>
 </main>
 <footer th:replace="partials/commons::footer">
 </footer>

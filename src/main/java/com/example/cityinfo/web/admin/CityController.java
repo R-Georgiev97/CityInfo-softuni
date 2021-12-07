@@ -37,6 +37,8 @@ public class CityController {
         return  TEMPLATE_DIRECTORY + "/create";
     }
 
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping()
     public String store(@Valid CityBindingModel cityBindingModel,
                         BindingResult bindingResult,

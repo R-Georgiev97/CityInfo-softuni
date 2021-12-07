@@ -6,7 +6,15 @@
 <body>
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
+    <div class="container col-md-10 border-dark">
+        <h2 class="text-center">Добави обект</h2>
+        <form th:action="@{/objects}"  th:method="POST" th:object="${objectBindingModel}"
+              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
 
+            <div th:replace="objects/partials/form::object-fields"></div>
+
+        </form>
+    </div>
 </main>
 <footer th:replace="partials/commons::footer">
 </footer>

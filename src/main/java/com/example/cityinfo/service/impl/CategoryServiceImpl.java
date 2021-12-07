@@ -87,7 +87,6 @@ public class CategoryServiceImpl implements CategoryService {
             this.defaultFields = new HashMap<>();
             this.defaultFields.put("working_time", "Работно време");
             this.defaultFields.put("location", "Локация");
-            this.defaultFields.put("description", "Описание");
             this.defaultFields.put("phone_number", "Телефон за връзка");
             this.defaultFields.put("website", "Уебсайт");
         }
@@ -131,6 +130,15 @@ public class CategoryServiceImpl implements CategoryService {
         categoryFieldService.storeMultiple(categoryBindingModel.getFieldNames(), categoryBindingModel.getFieldSlugs(), category);
         categoryRepository.save(category);
         return category;
+    }
+
+    @Override
+    @Transactional
+    public List<CategoryFieldBindingModel> getFieldsByCategorySlug(String slug) {
+        Category category = categoryRepository.findCategoryBySlug(slug);
+        return category.getCategoryFields().stream()
+                .map(categoryField -> modelMapper.map(categoryField,CategoryFieldBindingModel.class))
+                .collect(Collectors.toList());
     }
 
     @Override
