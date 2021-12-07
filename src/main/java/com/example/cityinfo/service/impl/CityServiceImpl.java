@@ -63,4 +63,9 @@ public class CityServiceImpl implements CityService {
         City city = modelMapper.map(cityBindingModel, City.class);
         cityRepository.save(city);
     }
+
+    @Override
+    public City getById(Long id) {
+        return cityRepository.getById(id);
+    }
 }

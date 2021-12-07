@@ -18,7 +18,7 @@ public class ObjectBindingModel {
     @NotNull
     private Boolean status;
     @NotNull
-    private String cityName;
+    private Long cityId;
     private User user;
     @NotNull
     private String categorySlug;
@@ -56,12 +56,12 @@ public class ObjectBindingModel {
         this.status = status;
     }
 
-    public String getCityName() {
-        return cityName;
+    public Long getCityId() {
+        return cityId;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 
     public User getUser() {

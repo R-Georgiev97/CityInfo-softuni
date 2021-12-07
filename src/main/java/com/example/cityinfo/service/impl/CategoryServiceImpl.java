@@ -135,10 +135,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public List<CategoryFieldBindingModel> getFieldsByCategorySlug(String slug) {
-        Category category = categoryRepository.findCategoryBySlug(slug);
+        Category category = getBySlug(slug);
         return category.getCategoryFields().stream()
                 .map(categoryField -> modelMapper.map(categoryField,CategoryFieldBindingModel.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Category getBySlug(String slug) {
+        return categoryRepository.findCategoryBySlug(slug);
     }
 
     @Override

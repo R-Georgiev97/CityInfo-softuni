@@ -1,4 +1,5 @@
 import {ajaxDelete, ajaxGet, ajaxPost} from "./ajax.js";
+import {swalError} from "./sweet_alert.js";
 
 $(document).ready(function () {
     //ADMIN CATEGORIES
@@ -72,6 +73,24 @@ $(document).ready(function () {
             })
         })
         $(this).find('.js-not-selected-option').attr('disabled','disabled');
+        $('.js-object-create-form').find('input[type="submit"]').removeAttr('disabled')
+    })
+
+    $('.js-object-create-form').on('submit', function (e){
+        e.preventDefault()
+        let error = false;
+        if ($(this).find('input#name').val().length < 4){
+            error = true;
+        }
+        if ($(this).find('textarea#description').val().length < 4){
+            error = true;
+        }
+        if (error){
+            swalError('Моля попълнете всички полета')
+        }else {
+            $(this).unbind('submit').submit()
+        }
+
     })
         //END OBJECTS
 

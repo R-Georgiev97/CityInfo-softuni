@@ -8,11 +8,11 @@ export function swalSuccess(message){
         timer: 2500
     })
 }
-export  function swalError(){
+export  function swalError(message){
     swal.fire({
         position: 'center',
         icon: 'error',
-        title: "Sorry something went wrong",
+        title: message ? message : "Sorry something went wrong",
         showConfirmButton: false,
         timer: 2500
     })

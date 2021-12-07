@@ -61,7 +61,7 @@ public class ObjectController {
             return "redirect:/objects/create";
         }
 
-        objectService.store(objectBindingModel, allRequestParams)
+        objectService.store(objectBindingModel, allRequestParams);
 
         return "objects/index";
     }

@@ -9,7 +9,7 @@
     <div class="container col-md-10 border-dark">
         <h2 class="text-center">Добави обект</h2>
         <form th:action="@{/objects}"  th:method="POST" th:object="${objectBindingModel}"
-              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center js-object-create-form">
 
             <div th:replace="objects/partials/form::object-fields"></div>
 

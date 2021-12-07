@@ -23,4 +23,6 @@ public interface CategoryService {
     Category update(CategoryBindingModel categoryStoreBindingModel) throws Exception;
 
     List<CategoryFieldBindingModel> getFieldsByCategorySlug(String slug);
+
+    Category getBySlug(String slug);
 }

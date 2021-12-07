@@ -15,10 +15,10 @@
             </p>
         </div>
         <div class="col-md-6 p-0 pl-2">
-            <label class="text-center font-weight-bold" for="cityName">Град</label>
-            <select th:errorclass="is-invalid" id="cityName" name="cityName" class="form-control p-0">
+            <label class="text-center font-weight-bold" for="cityId">Град</label>
+            <select th:errorclass="is-invalid" id="cityId" name="cityId" class="form-control p-0">
                 <option th:each="city : ${cities}"
-                        th:text="${city.name}" th:value="${city.id}" th:selected="${city.id} == *{cityName}"
+                        th:text="${city.name}" th:value="${city.id}" th:selected="${city.id} == *{cityId}"
                 >
                 </option>
             </select>
@@ -67,7 +67,7 @@
     <div class="row d-flex justify-content-between">
         <div class="col col-md-4">
             <div class="button-holder d-flex">
-                <input type="submit" class="btn btn-info btn-lg" value="Запази"/>
+                <input type="submit" class="btn btn-info btn-lg" value="Запази" disabled/>
             </div>
         </div>
     </div>
