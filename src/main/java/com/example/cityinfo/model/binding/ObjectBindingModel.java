@@ -19,6 +19,7 @@ public class ObjectBindingModel {
     private Boolean status;
     @NotNull
     private Long cityId;
+    private String cityName;
     private User user;
     @NotNull
     private String categorySlug;
@@ -86,5 +87,13 @@ public class ObjectBindingModel {
 
     public void setCategorySlug(String categorySlug) {
         this.categorySlug = categorySlug;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 }

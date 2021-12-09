@@ -6,7 +6,14 @@
 <body>
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
-    <a class="nav-link" href="/objects/create" sec:authorize="isAuthenticated()">Добави обект</a>
+    <div class="card-link float-right mt-2 mr-2" sec:authorize="isAuthenticated()">
+        <button type="button" class="btn btn-sm btn-outline-primary">
+            <a class="nav-link" href="/objects/create" sec:authorize="isAuthenticated()">Добави обект</a>
+        </button>
+    </div>
+    <div th:replace="objects/partials/objects_list::list"></div>
+
+
 </main>
 <footer th:replace="partials/commons::footer">
 </footer>

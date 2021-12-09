@@ -14,11 +14,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ObjectServiceImpl implements ObjectService {
 
-    private static final List<String> OBJECT_FIELDS = new ArrayList<>(Arrays.asList("name", "description", "status", "cityId", "categorySlug","_csrf"));
+    private static final List<String> OBJECT_FIELDS = new ArrayList<>(Arrays.asList("name", "description", "status", "cityId", "categorySlug", "_csrf"));
 
     private final ObjectRepository objectRepository;
     private final ModelMapper modelMapper;
@@ -36,11 +37,11 @@ public class ObjectServiceImpl implements ObjectService {
         this.objectDataService = objectDataService;
     }
 
-    public void store(ObjectBindingModel objectBindingModel, Map<String,String> requestParams){
+    public void store(ObjectBindingModel objectBindingModel, Map<String, String> requestParams) {
         String username = "";
-        java.lang.Object principal = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
-        if (principal instanceof UserDetails){
-          username =  ((UserDetails) principal).getUsername();
+        java.lang.Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
         }
         Object object = modelMapper.map(objectBindingModel, Object.class);
         object.setApproved(false);
@@ -50,15 +51,30 @@ public class ObjectServiceImpl implements ObjectService {
         object.setUser(userService.getByUsername(username));
         objectRepository.save(object);
 
-        storeObjectData(requestParams,object);
+        storeObjectData(requestParams, object);
 
     }
 
-    private void storeObjectData(Map<String,String> requestParams,Object object){
+
+    private void storeObjectData(Map<String, String> requestParams, Object object) {
         for (var entry : requestParams.entrySet()) {
-            if (!OBJECT_FIELDS.contains(entry.getKey())){
-                objectDataService.store(entry.getKey(), entry.getValue(), object);
+            if (!OBJECT_FIELDS.contains(entry.getKey())) {
+                if (!entry.getValue().equals("") || entry.getValue() != null) {
+                    objectDataService.store(entry.getKey(), entry.getValue(), object);
+                }
             }
         }
+    }
+
+    @Override
+    public List<ObjectBindingModel> getLastApprovedObjects() {
+        return objectRepository.findTop5ByApprovedOrderByIdDesc(true)
+                .stream()
+                .map(object -> {
+                    ObjectBindingModel objectBindingModel = modelMapper.map(object, ObjectBindingModel.class);
+                    objectBindingModel.setCityName(object.getCity().getName());
+                    return objectBindingModel;
+                })
+                .collect(Collectors.toList());
     }
 }

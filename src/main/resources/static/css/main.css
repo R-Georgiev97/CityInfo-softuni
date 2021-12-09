@@ -5,9 +5,10 @@ body {
 main {
     background-color: lightcyan;
     width: 80%;
-    height: 94vh;
+    min-height: 90vh;
     display: block;
     margin: 0 auto;
+    padding-bottom: 7vh;
 }
 
 header {

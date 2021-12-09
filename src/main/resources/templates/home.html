@@ -7,7 +7,18 @@
 <body>
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
+    <div class="text-center text-secondary">
+        <h2>Добре дошли в CityInfo</h2>
+        <h4>Тук може да намерите всичко за вашият град</h4>
+        <span>(Последно добавени)</span>
+    </div>
+    <div th:replace="objects/partials/objects_list::list"></div>
 
+    <div class="col-md-12">
+        <div class="col-md-12 text-center">
+            <a class="nav-link" th:href="@{/objects}"> -->Вижте всички --<</a>
+        </div>
+    </div>
 </main>
 <footer th:replace="partials/commons::footer">
 </footer>
