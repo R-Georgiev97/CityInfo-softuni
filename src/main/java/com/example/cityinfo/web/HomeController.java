@@ -1,6 +1,7 @@
 package com.example.cityinfo.web;
 
 import com.example.cityinfo.model.binding.ObjectBindingModel;
+import com.example.cityinfo.model.view.ObjectViewModel;
 import com.example.cityinfo.service.ObjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +20,8 @@ public class HomeController {
 
     @GetMapping()
     public String index(Model model){
-        List<ObjectBindingModel> objectBindingModels = objectService.getLastApprovedObjects();
-        model.addAttribute("objectBindingModels", objectBindingModels);
+        List<ObjectViewModel> objects = objectService.getLastApprovedObjects();
+        model.addAttribute("objects", objects);
         return "home";
     }
 

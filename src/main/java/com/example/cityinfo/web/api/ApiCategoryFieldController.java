@@ -13,11 +13,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api")
-public class CategoryFieldApi {
+public class ApiCategoryFieldController {
 
     private final CategoryService categoryService;
 
-    public CategoryFieldApi(CategoryService categoryService) {
+    public ApiCategoryFieldController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 

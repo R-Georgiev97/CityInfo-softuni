@@ -6,7 +6,47 @@
 <body>
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
-  <a class="nav-link" href="/objects/create">Добави обект</a>
+  <div class="container col-md-8 border-dark">
+    <h1>Категории</h1>
+
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Обект</th>
+        <th scope="col">Град</th>
+        <th scope="col">Категория</th>
+        <th scope="col" class="text-right">Опции</th>
+      </tr>
+      </thead>
+      <tbody class="table-hover">
+      <tr th:each="object : ${objects}" th:object="${object}">
+        <td><span th:text="*{name}"></span></td>
+        <td><span th:text="*{cityName}"></span></td>
+        <td><span th:text="*{categoryName}"></span></td>
+        <td class="d-flex justify-content-end">
+          <div class="col-md-3">
+            <a class="btn btn-outline-primary rounded-circle js-approve-object" data-toggle="tooltip" data-placement="top" title="Одобри"
+               th:attr="data-object_id=*{id}">
+              <i class="fas fa-check"></i>
+            </a>
+          </div>
+          <div class="col-md-3 d-flex justify-content-center">
+            <form th:action="@{/admin/categories/{id}(id=*{id})}" th:method="delete"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Изтрии"
+                  class="js-admin-index-delete-entity-form">
+              <button type="submit" class="btn btn-outline-primary rounded-circle" >
+                <i class="fas fa-trash"></i>
+              </button>
+            </form>
+          </div>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
 </main>
 <footer th:replace="partials/commons::footer">
 </footer>

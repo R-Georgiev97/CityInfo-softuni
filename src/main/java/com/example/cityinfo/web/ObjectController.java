@@ -36,6 +36,7 @@ public class ObjectController {
         return "objects/index";
     }
 
+
     @ModelAttribute("objectBindingModel")
     public ObjectBindingModel objectBindingModel() {
         return new ObjectBindingModel();

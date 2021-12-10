@@ -7,13 +7,8 @@
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
 
-    <div class="container">
-        <h1 class="display-3">
-            <div class=" pl-3 font-weight-bold text-center">
-                Регистрация
-            </div>
-        </h1>
-    </div>
+    <h2 class="text-center">Регистрация</h2>
+
     <div class="row d-flex justify-content-center">
 
         <div class="col-md-8">
@@ -32,7 +27,7 @@
                                     th:errorclass="is-invalid"
                                     type="text"
                                     class="form-control"
-                                    placeholder="First name"/>
+                                    placeholder="Име"/>
                             <p class="invalid-feedback errors alert alert-danger">
                                 Полето трябва да е между 4 и 15 символа.
                             </p>
@@ -44,7 +39,7 @@
                                    th:field="*{lastName}"
                                    th:errorclass="is-invalid"
                                    type="text" class="form-control"
-                                   placeholder="Last name"/>
+                                   placeholder="Фамилия"/>
                             <p class="invalid-feedback errors alert alert-danger">
                                 Полето трябва да е между 4 и 15 символа.
                             </p>
@@ -58,7 +53,7 @@
                                    th:field="*{username}"
                                    th:errorclass="is-invalid"
                                    type="text" class="form-control"
-                                   placeholder="Username"/>
+                                   placeholder="Потребителско име"/>
                             <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                                class="invalid-feedback errors alert alert-danger">
                                 Полето трябва да е между 4 и 15 символа.
@@ -71,7 +66,7 @@
                                    th:field="*{email}"
                                    th:errorclass="is-invalid"
                                    type="text" class="form-control"
-                                   placeholder="Email"/>
+                                   placeholder="Емайл"/>
                             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                class="invalid-feedback errors alert alert-danger">
                                 Задължително поле.
@@ -86,7 +81,7 @@
                                    th:field="*{password}"
                                    th:errorclass="is-invalid"
                                    type="password" class="form-control"
-                                   placeholder="Password"/>
+                                   placeholder="Парола"/>
                             <p class="invalid-feedback errors alert alert-danger">
                                 Задължително поле.
                             </p>
@@ -96,7 +91,7 @@
                             <input id="confirmPassword"
                                    th:field="*{confirmPassword}"
                                    type="password" class="form-control"
-                                   placeholder="Confirm your password"/>
+                                   placeholder="Повтори парола"/>
                             <p class="invalid-feedback errors alert alert-danger">
                                 Задължително поле.
                             </p>
@@ -105,7 +100,7 @@
                     <div class="row d-flex justify-content-center">
                         <div class="col col-md-4">
                             <div class="button-holder d-flex">
-                                <input type="submit" class="btn btn-info btn-lg" value="Create account"/>
+                                <input type="submit" class="btn btn-info btn-lg" value="Регистрация"/>
                             </div>
                         </div>
                     </div>

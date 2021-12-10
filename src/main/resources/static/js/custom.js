@@ -1,5 +1,5 @@
 import {ajaxDelete, ajaxGet, ajaxPost} from "./ajax.js";
-import {swalError} from "./sweet_alert.js";
+import {swalError, swalSuccess} from "./sweet_alert.js";
 
 $(document).ready(function () {
     //ADMIN CATEGORIES
@@ -32,13 +32,14 @@ $(document).ready(function () {
         let userId = $(this).data('user_id')
 
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Сигурен ли си?',
+            text: "Този потребител ще бъде изтрит.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            cancelButtonText: 'Отказ',
+            confirmButtonText: 'Изтрии'
         }).then((result) => {
             if (result.isConfirmed) {
                 ajaxPost("/admin/users/" + userId + "/delete", {})
@@ -60,7 +61,9 @@ $(document).ready(function () {
 
     //END CITIES
 
+
     //OBJECTS
+
     $('.js-object-category').on('change', function () {
         let categorySlug = $(this).find('option:selected').val();
         let fieldsContainer = $('.js-object-fields');
@@ -72,78 +75,105 @@ $(document).ready(function () {
                 fieldsContainer.append(fieldHolder)
             })
         })
-        $(this).find('.js-not-selected-option').attr('disabled','disabled');
+        $(this).find('.js-not-selected-option').attr('disabled', 'disabled');
         $('.js-object-create-form').find('input[type="submit"]').removeAttr('disabled')
     })
 
-    $('.js-object-create-form').on('submit', function (e){
+    $('.js-object-create-form').on('submit', function (e) {
         e.preventDefault()
         let error = false;
-        if ($(this).find('input#name').val().length < 4){
+        if ($(this).find('input#name').val().length < 4) {
             error = true;
         }
-        if ($(this).find('textarea#description').val().length < 4){
+        if ($(this).find('textarea#description').val().length < 4) {
             error = true;
         }
-        if (error){
+        if (error) {
             swalError('Моля попълнете всички полета')
-        }else {
+        } else {
             $(this).unbind('submit').submit()
         }
 
     })
-        //END OBJECTS
 
-        //GENERAL
-        $('.js-admin-index-delete-entity-form').on('submit', function (e) {
-            e.preventDefault()
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(this).unbind('submit').submit()
-                }
-            })
-        })
+    //ADMIN OBJECTS
 
-
-    });
-
-    function confirmAndDelete(url) {
+    $('.js-approve-object').on('click',function (e){
+        let btn = $(this)
+        let objectId =  btn.data('object_id')
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Сигурен ли си?',
+            text: "След като обектът бъде одобрен ще бъде видим за всички потребители",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            cancelButtonText: 'Отказ',
+            confirmButtonText: 'Одобри'
         }).then((result) => {
             if (result.isConfirmed) {
-                ajaxDelete(url)
+                ajaxPost('/api/objects/approve?object_id='+objectId,{}, (response)=>{
+                    swalSuccess()
+                    btn.parents('tr').remove()
+                })
             }
         })
-    }
+    })
 
-    function getCategoryFieldInput(field) {
-        let fieldHolder = $('.js-object-field-hidden').clone()
-        fieldHolder.removeClass('js-object-field-hidden d-none').addClass('js-object-field')
-        let label = fieldHolder.find('label')
-        label.attr('for', field.slug)
-        label.text(field.name)
-        let inputEl = fieldHolder.find('input')
-        inputEl.removeAttr('disabled')
-            .attr('name', field.slug)
-            .attr('id',field.slug)
-            .attr('placeholder',field.name)
+    //END OBJECTS
 
-        return fieldHolder;
-    }
+    //GENERAL
+    $('.js-admin-index-delete-entity-form').on('submit', function (e) {
+        e.preventDefault()
+        Swal.fire({
+            title: 'Сигурен ли си?',
+            text: "Наистина ли искаш да изтриеш?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Отказ',
+            confirmButtonText: 'Изтрии'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).unbind('submit').submit()
+            }
+        })
+    })
+
+
+});
+
+function confirmAndDelete(url) {
+    Swal.fire({
+        title: 'Сигурен ли си?',
+        text: "Наистина ли искаш да изтриеш?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Отказ',
+        confirmButtonText: 'Изтрии'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            ajaxDelete(url)
+        }
+    })
+}
+
+function getCategoryFieldInput(field) {
+    let fieldHolder = $('.js-object-field-hidden').clone()
+    fieldHolder.removeClass('js-object-field-hidden d-none').addClass('js-object-field')
+    let label = fieldHolder.find('label')
+    label.attr('for', field.slug)
+    label.text(field.name)
+    let inputEl = fieldHolder.find('input')
+    inputEl.removeAttr('disabled')
+        .attr('name', field.slug)
+        .attr('id', field.slug)
+        .attr('placeholder', field.name)
+
+    return fieldHolder;
+}
 
 

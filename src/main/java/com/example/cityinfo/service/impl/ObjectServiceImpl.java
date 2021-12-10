@@ -2,7 +2,7 @@ package com.example.cityinfo.service.impl;
 
 import com.example.cityinfo.model.binding.ObjectBindingModel;
 import com.example.cityinfo.model.entity.Object;
-import com.example.cityinfo.model.entity.ObjectData;
+import com.example.cityinfo.model.view.ObjectViewModel;
 import com.example.cityinfo.repository.ObjectRepository;
 import com.example.cityinfo.service.*;
 import org.modelmapper.ModelMapper;
@@ -10,10 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,7 +56,7 @@ public class ObjectServiceImpl implements ObjectService {
     private void storeObjectData(Map<String, String> requestParams, Object object) {
         for (var entry : requestParams.entrySet()) {
             if (!OBJECT_FIELDS.contains(entry.getKey())) {
-                if (!entry.getValue().equals("") || entry.getValue() != null) {
+                if (!entry.getValue().equals("") && entry.getValue() != null) {
                     objectDataService.store(entry.getKey(), entry.getValue(), object);
                 }
             }
@@ -67,14 +64,37 @@ public class ObjectServiceImpl implements ObjectService {
     }
 
     @Override
-    public List<ObjectBindingModel> getLastApprovedObjects() {
+    public List<ObjectViewModel> getLastApprovedObjects() {
         return objectRepository.findTop5ByApprovedOrderByIdDesc(true)
                 .stream()
                 .map(object -> {
-                    ObjectBindingModel objectBindingModel = modelMapper.map(object, ObjectBindingModel.class);
-                    objectBindingModel.setCityName(object.getCity().getName());
-                    return objectBindingModel;
+                    ObjectViewModel objectViewModel = modelMapper.map(object, ObjectViewModel.class);
+                    objectViewModel.setCityName(object.getCity().getName());
+                    objectViewModel.setCategoryName(object.getCategory().getName());
+                    return objectViewModel;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ObjectViewModel> getAllNotApproved() {
+        return objectRepository.findAllByApprovedOrderById(false)
+                .stream()
+                .map(object -> {
+                    ObjectViewModel objectViewModel = modelMapper.map(object, ObjectViewModel.class);
+                    objectViewModel.setCityName(object.getCity().getName());
+                    objectViewModel.setCategoryName(object.getCategory().getName());
+                    return objectViewModel;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void approveObject(Long id) throws Exception {
+        Object object = objectRepository.findById(id)
+                .orElseThrow(() -> new Exception("Object not found"));
+        object.setApproved(true);
+        objectRepository.save(object);
+
     }
 }

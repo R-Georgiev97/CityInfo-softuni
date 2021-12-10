@@ -19,8 +19,6 @@ import java.util.Set;
 @RequestMapping("/admin/categories")
 public class CategoryController {
 
-    static final String TEMPLATE_DIRECTORY = "admin/categories";
-
     private final CategoryService categoryService;
 
     public CategoryController(CategoryService categoryService) {
@@ -30,7 +28,7 @@ public class CategoryController {
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
-        return TEMPLATE_DIRECTORY + "/index";
+        return  "admin/categories/index";
     }
 
     @GetMapping("/create")
@@ -39,25 +37,25 @@ public class CategoryController {
             model.
                     addAttribute("categoryBindingModel", new CategoryBindingModel());
         }
-        return TEMPLATE_DIRECTORY + "/create";
+        return "admin/categories/create";
     }
 
     @PostMapping()
     public String store(@Valid CategoryBindingModel categoryBindingModel,
-                        @RequestParam(value = "field_name[]") String[] fieldNames,
-                        @RequestParam(value = "field_slug[]") String[] fieldSlugs,
+                        @RequestParam(value = "field_name[]",required = false) String[] fieldNames,
+                        @RequestParam(value = "field_slug[]",required = false) String[] fieldSlugs,
                         BindingResult bindingResult,
                         RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
 
             redirectAttributes.addFlashAttribute("categoryBindingModel", categoryBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.categoryBindingModel", bindingResult);
-            return "redirect:/" + TEMPLATE_DIRECTORY + "/create";
+            return "redirect:/admin/categories/create";
         }
         categoryBindingModel.setFieldNames(fieldNames);
         categoryBindingModel.setFieldSlugs(fieldSlugs);
         categoryService.store(categoryBindingModel);
-        return "redirect:/" + TEMPLATE_DIRECTORY;
+        return "redirect:/admin/categories";
     }
 
     @GetMapping("/{id}/edit")
@@ -66,7 +64,7 @@ public class CategoryController {
 
         model.addAttribute("categoryBindingModel", categoryBindingModel);
         model.addAttribute("categoryFieldsBindingModels", categoryBindingModel.getCategoryFields());
-        return TEMPLATE_DIRECTORY + "/edit";
+        return "admin/categories/edit";
     }
 
     @PutMapping("/{id}/edit")
@@ -79,17 +77,17 @@ public class CategoryController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("categoryBindingModel", categoryBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.categoryBindingModel", bindingResult);
-            return "redirect:/" + TEMPLATE_DIRECTORY + categoryBindingModel.getId() +"/edit";
+            return "redirect:/admin/categories/" + categoryBindingModel.getId() +"/edit";
         }
         categoryBindingModel.setFieldNames(fieldNames);
         categoryBindingModel.setFieldSlugs(fieldSlugs);
         categoryService.update(categoryBindingModel);
-        return "redirect:/" + TEMPLATE_DIRECTORY;
+        return "redirect:/admin/categories" ;
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) throws Exception {
         categoryService.delete(id);
-        return "redirect:/" + TEMPLATE_DIRECTORY;
+        return "redirect:/admin/categories";
     }
 }

@@ -1,27 +1,16 @@
-package com.example.cityinfo.model.binding;
+package com.example.cityinfo.model.view;
+
 
 import com.example.cityinfo.model.entity.ObjectData;
-import com.example.cityinfo.model.entity.User;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Map;
 
-public class ObjectBindingModel {
+public class ObjectViewModel {
     private Long id;
-    @NotNull
-    @Size(min=4, max=20)
     private String name;
-    @NotNull
-    @Size(min=4)
     private String description;
-    @NotNull
     private Boolean status;
-    @NotNull
-    private Long cityId;
-    private User user;
-    @NotNull
-    private String categorySlug;
+    private String cityName;
+    private String categoryName;
     private List<ObjectData> fields;
 
     public Long getId() {
@@ -56,20 +45,20 @@ public class ObjectBindingModel {
         this.status = status;
     }
 
-    public Long getCityId() {
-        return cityId;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
-    public User getUser() {
-        return user;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public List<ObjectData> getFields() {
@@ -79,13 +68,4 @@ public class ObjectBindingModel {
     public void setFields(List<ObjectData> fields) {
         this.fields = fields;
     }
-
-    public String getCategorySlug() {
-        return categorySlug;
-    }
-
-    public void setCategorySlug(String categorySlug) {
-        this.categorySlug = categorySlug;
-    }
-
 }
