@@ -63,4 +63,9 @@ public class CategoryFieldServiceImpl implements CategoryFieldService {
         categoryFieldRepository.deleteById(id);
         return null;
     }
+
+    @Override
+    public CategoryField findCategoryFieldBySlug(String slug) {
+        return categoryFieldRepository.findFirstBySlug(slug);
+    }
 }

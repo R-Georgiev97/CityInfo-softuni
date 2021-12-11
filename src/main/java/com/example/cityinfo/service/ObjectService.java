@@ -1,6 +1,7 @@
 package com.example.cityinfo.service;
 
 import com.example.cityinfo.model.binding.ObjectBindingModel;
+import com.example.cityinfo.model.binding.ObjectEditBindingModel;
 import com.example.cityinfo.model.view.ObjectViewModel;
 
 import java.util.List;
@@ -15,4 +16,8 @@ public interface ObjectService {
     List<ObjectViewModel>  getAllNotApproved();
 
     void approveObject(Long id) throws Exception;
+
+    ObjectViewModel getById(Long id) throws Exception;
+
+    void update(ObjectEditBindingModel objetEditBindingModel, Map<String,String> requestParams) throws Exception;
 }

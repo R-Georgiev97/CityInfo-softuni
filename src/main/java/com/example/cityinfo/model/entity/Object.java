@@ -2,6 +2,9 @@ package com.example.cityinfo.model.entity;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,7 +14,7 @@ import java.util.Set;
 @Entity
 @Where(clause = "deleted_at is NULL")
 @Table(name = "objects")
-public class Object extends BaseEntity{
+public class Object extends BaseEntity {
 
     private String name;
     private String description;
@@ -24,7 +27,6 @@ public class Object extends BaseEntity{
     private LocalDateTime deletedAt;
     private City city;
     private User user;
-
 
     public Object() {
     }
@@ -73,6 +75,7 @@ public class Object extends BaseEntity{
     public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
+
     @ManyToOne
     public Category getCategory() {
         return category;
@@ -118,6 +121,7 @@ public class Object extends BaseEntity{
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
     @Column
     public LocalDateTime getDeletedAt() {
         return deletedAt;
@@ -125,5 +129,19 @@ public class Object extends BaseEntity{
 
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+    }
+
+    public boolean canBeEdited() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return true;
+        }
+        String username = "";
+        java.lang.Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+            return username.equals(this.user.getUsername());
+        }
+        return false;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.cityinfo.service.impl;
 
 import com.example.cityinfo.model.binding.ObjectBindingModel;
+import com.example.cityinfo.model.binding.ObjectEditBindingModel;
 import com.example.cityinfo.model.entity.Object;
 import com.example.cityinfo.model.view.ObjectViewModel;
 import com.example.cityinfo.repository.ObjectRepository;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class ObjectServiceImpl implements ObjectService {
 
-    private static final List<String> OBJECT_FIELDS = new ArrayList<>(Arrays.asList("name", "description", "status", "cityId", "categorySlug", "_csrf"));
+    private static final List<String> OBJECT_FIELDS = new ArrayList<>(Arrays.asList("name", "description", "status", "cityId", "categorySlug", "_csrf","_method"));
 
     private final ObjectRepository objectRepository;
     private final ModelMapper modelMapper;
@@ -56,9 +57,13 @@ public class ObjectServiceImpl implements ObjectService {
     private void storeObjectData(Map<String, String> requestParams, Object object) {
         for (var entry : requestParams.entrySet()) {
             if (!OBJECT_FIELDS.contains(entry.getKey())) {
-                if (!entry.getValue().equals("") && entry.getValue() != null) {
-                    objectDataService.store(entry.getKey(), entry.getValue(), object);
+                String value = entry.getValue();
+                if (entry.getValue().equals("") || entry.getValue() == null) {
+                    value = "липсва информация";
                 }
+
+                objectDataService.store(entry.getKey(), value , object);
+
             }
         }
     }
@@ -97,4 +102,44 @@ public class ObjectServiceImpl implements ObjectService {
         objectRepository.save(object);
 
     }
+
+    @Override
+    public ObjectViewModel getById(Long id) throws Exception {
+        Object object = objectRepository.findById(id)
+                .orElseThrow(() -> new Exception("Object not found"));
+
+        ObjectViewModel objectViewModel = modelMapper.map(object, ObjectViewModel.class);
+        objectViewModel.setCityName(object.getCity().getName());
+        objectViewModel.setCategoryName(object.getCategory().getName());
+        objectViewModel.setFields(object.getObjectData());
+        objectViewModel.setCanBeEdited(object.canBeEdited());
+        return objectViewModel;
+    }
+
+    @Override
+    public void update(ObjectEditBindingModel objetEditBindingModel, Map<String, String> requestParams) throws Exception {
+        Object object = objectRepository.findById(objetEditBindingModel.getId())
+                .orElseThrow(() -> new Exception("Object not found"));
+
+        object.setName(objetEditBindingModel.getName());
+        object.setDescription(objetEditBindingModel.getDescription());
+        object.setStatus(objetEditBindingModel.getStatus());
+
+        updateObjectData(requestParams,object);
+        objectRepository.save(object);
+    }
+
+    private void updateObjectData(Map<String, String> requestParams, Object object) {
+        for (var entry : requestParams.entrySet()) {
+            if (!OBJECT_FIELDS.contains(entry.getKey())) {
+                String value = entry.getValue();
+                if (entry.getValue().equals("") || entry.getValue() == null) {
+                    value = "липсва информация";
+                }
+
+                objectDataService.update(entry.getKey(), value , object);
+            }
+        }
+    }
+
 }

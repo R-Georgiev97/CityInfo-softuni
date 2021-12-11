@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface CategoryFieldRepository extends JpaRepository<CategoryField, Long> {
 
     Optional<CategoryField> findBySlugAndCategory(String slug, Category category);
+
+    CategoryField findFirstBySlug(String slug);
 }

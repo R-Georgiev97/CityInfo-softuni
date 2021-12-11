@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/commons::head"></head>
+<body>
+<header th:replace="partials/commons::nav"></header>
+<main role="main">
+
+    <div class="container object-container" th:object="${object}">
+        <div class="header pt-2 d-flex justify-content-center">
+            <h1 class="text-center" th:text="*{name}">
+            </h1>
+            <span th:if="*{canBeEdited}" class="pt-2">
+                    <a class="nav-link" th:href="@{/objects/{id}/edit(id=*{id})}">Редактирай</a>
+                </span>
+        </div>
+
+        <div class="d-flex">
+            <div class="col-md-8">
+                <p th:text="*{description}"></p>
+            </div>
+            <div class="col-md-4">
+                <div class="list-group" th:each="attribute : *{fields}">
+                    <a href="#"
+                       class="pt-2 pl-2 pb-0 list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1" th:text="${attribute.getFieldName()}"></h5>
+                        </div>
+                        <p class="mb-1" th:text="${attribute.getFieldValue()}"></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+        <!--        TODO-->
+        <div class="comments">
+            <div class="d-flex justify-content-between">
+                <div class="col-md-8">
+                    <h4>Коментари</h4>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end" data-toggle="tooltip" data-placement="top"
+                     th:title="*{averageRating}">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+            </div>
+            <article class="comment card p-2">
+                <div class="comment-body цард">
+                    <div class="text">
+                        <p>Секцията за коментари и рейтинг са все още в разработка</p>
+                    </div>
+                    <p class="attribution mb-0">от <i>Радостин Георгиев</i></p>
+                </div>
+            </article>
+        </div>
+    </div>
+
+</main>
+<footer th:replace="partials/commons::footer">
+</footer>
+</body>
+</html>

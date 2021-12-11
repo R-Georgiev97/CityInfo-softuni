@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ObjectDataRepository extends JpaRepository<ObjectData, Long> {
+        ObjectData findByFieldKeyAndObject(String fieldKey,Object object);
 }

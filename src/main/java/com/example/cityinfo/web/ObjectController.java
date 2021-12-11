@@ -2,7 +2,9 @@ package com.example.cityinfo.web;
 
 import com.example.cityinfo.model.binding.CityBindingModel;
 import com.example.cityinfo.model.binding.ObjectBindingModel;
+import com.example.cityinfo.model.binding.ObjectEditBindingModel;
 import com.example.cityinfo.model.view.CategoryNameAndSlugView;
+import com.example.cityinfo.model.view.ObjectViewModel;
 import com.example.cityinfo.service.CategoryService;
 import com.example.cityinfo.service.CityService;
 import com.example.cityinfo.service.ObjectService;
@@ -51,6 +53,12 @@ public class ObjectController {
         return "objects/create";
     }
 
+    @GetMapping("/{id}")
+    public String show(@PathVariable Long id, Model model) throws Exception {
+        model.addAttribute("object", objectService.getById(id));
+        return "objects/show";
+    }
+
     @PostMapping
     public String store(@Valid ObjectBindingModel objectBindingModel,
                         @RequestParam Map<String,String> allRequestParams,
@@ -65,6 +73,28 @@ public class ObjectController {
         objectService.store(objectBindingModel, allRequestParams);
 
         return "objects/index";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) throws Exception {
+        ObjectViewModel objectViewModel = objectService.getById(id);
+        model.addAttribute("object", objectViewModel);
+        return "objects/edit";
+    }
+
+    @PutMapping("/{id}/edit")
+    public String update(@PathVariable Long id,
+                         @Valid ObjectEditBindingModel objetEditBindingModel,
+                         @RequestParam Map<String,String> allRequestParams,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes) throws Exception {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("object", objetEditBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.object", bindingResult);
+            return "redirect:/objects/"+  objetEditBindingModel.getId() +"/edit";
+        }
+        objectService.update(objetEditBindingModel, allRequestParams);
+        return "redirect:/objects" ;
     }
 
 }

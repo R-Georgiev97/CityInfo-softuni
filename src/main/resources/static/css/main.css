@@ -1,6 +1,8 @@
 body {
     height: 100vh;
+    font-family: 'Times New Roman', Serif, serif !important;
 }
+
 
 main {
     background-color: lightcyan;
@@ -16,4 +18,7 @@ header {
 }
 footer {
     background-color: lightskyblue;
+}
+.fa-star.checked {
+    color:orange;
 }

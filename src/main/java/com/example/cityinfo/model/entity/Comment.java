@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Table(name = "comments")
 public class Comment extends BaseEntity{
 
-    private String title;
     private String content;
     private User user;
     private Object object;
@@ -22,15 +21,6 @@ public class Comment extends BaseEntity{
     private LocalDateTime deletedAt;
 
     public Comment() {
-    }
-
-    @Column(nullable = false)
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @Column(nullable = false)

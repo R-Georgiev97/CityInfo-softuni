@@ -2,6 +2,7 @@ package com.example.cityinfo.service;
 
 import com.example.cityinfo.model.binding.CategoryFieldBindingModel;
 import com.example.cityinfo.model.entity.Category;
+import com.example.cityinfo.model.entity.CategoryField;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface CategoryFieldService {
     boolean isSlugFree(String slug,Category category);
 
     String destroy(Long id);
+
+    CategoryField findCategoryFieldBySlug(String slug);
 
 }

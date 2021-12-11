@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/commons::head"></head>
+<body>
+<header th:replace="partials/commons::nav"></header>
+<main role="main">
+    <div class="container col-md-10 border-dark">
+        <h2 class="text-center">Редактирай</h2>
+        <form th:action="@{/objects/{id}/edit(id=*{id})}"
+              th:method="PUT" th:object="${object}"
+              class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center js-object-create-form">
+
+            <div class="row form-group">
+                <div class="col-md-6 p-0 pr-2">
+                    <label for="name" class="font-weight-bold">Обект</label>
+                    <input th:field="*{name}" th:errorclass="is-invalid" name="name"
+                           id="name" class="form-control"
+                           placeholder="Обект"/>
+                    <p class="errors alert alert-danger invalid-feedback">
+                        Полето трябва да е между 4 и 15 символа.
+                    </p>
+                </div>
+                <div class="col-md-6 p-0 pl-2">
+                    <label class="text-center font-weight-bold" for="status">Статус</label>
+                    <select th:errorclass="is-invalid" id="status" name="status" class="form-control p-0">
+                        <option value="1">Активен</option>
+                        <option value="0">Неактивен</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="description" class="font-weight-bold">Описание</label>
+                <textarea th:field="*{description}" th:errorclass="is-invalid"
+                          class="form-control" id="description" rows="3" name="description">
+                </textarea>
+                <p class="errors alert alert-danger invalid-feedback">
+                    Полето трябва да е повече от 4 символа.
+                </p>
+            </div>
+            <div class="form-group row d-flex flex-column" th:each="attribute : *{fields}">
+                <div class="col-md-12 p-0 pr-2">
+                    <label class="font-weight-bold" th:for="${attribute.getFieldKey()}"
+                           th:text="${attribute.getFieldName()}"></label>
+                    <input th:name="${attribute.getFieldKey()}" th:id="${attribute.getFieldKey()}"
+                           class="form-control"
+                           th:placeholder="${attribute.getFieldName()}" th:value="${attribute.getFieldValue()}"/>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-between">
+                <div class="col col-md-4">
+                    <div class="button-holder d-flex">
+                        <input type="submit" class="btn btn-info btn-lg" value="Запази"/>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</main>
+<footer th:replace="partials/commons::footer">
+</footer>
+</body>
+</html>

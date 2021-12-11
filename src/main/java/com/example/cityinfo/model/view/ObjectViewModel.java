@@ -1,6 +1,7 @@
 package com.example.cityinfo.model.view;
 
 
+import com.example.cityinfo.model.entity.CategoryField;
 import com.example.cityinfo.model.entity.ObjectData;
 import java.util.List;
 
@@ -12,6 +13,8 @@ public class ObjectViewModel {
     private String cityName;
     private String categoryName;
     private List<ObjectData> fields;
+    private Double averageRating;
+    private Boolean canBeEdited;
 
     public Long getId() {
         return id;
@@ -68,4 +71,21 @@ public class ObjectViewModel {
     public void setFields(List<ObjectData> fields) {
         this.fields = fields;
     }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public Boolean getCanBeEdited() {
+        return canBeEdited;
+    }
+
+    public void setCanBeEdited(Boolean canBeEdited) {
+        this.canBeEdited = canBeEdited;
+    }
+
 }

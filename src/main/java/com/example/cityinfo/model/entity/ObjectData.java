@@ -9,6 +9,7 @@ import javax.persistence.Table;
 public class ObjectData extends BaseEntity{
 
     private String fieldKey;
+    private String fieldName;
     private String fieldValue;
     private Object object;
 
@@ -24,7 +25,16 @@ public class ObjectData extends BaseEntity{
         this.fieldKey = fieldKey;
     }
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(nullable = false)
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
+
+    @Column(columnDefinition = "TEXT", nullable = true)
     public String getFieldValue() {
         return fieldValue;
     }
