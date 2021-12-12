@@ -35,7 +35,14 @@ public class ObjectController {
 
     @GetMapping()
     public String index(Model model){
-        //TODO return all objects
+
+        List<CityBindingModel> cities = cityService.getAllCities();
+        List<CategoryNameAndSlugView> categories = categoryService.getAllCategories();
+        List<ObjectViewModel> objects = objectService.getAllApproved();
+
+        model.addAttribute("cities",cities);
+        model.addAttribute("categories",categories);
+        model.addAttribute("objects",objects);
         return "objects/index";
     }
 

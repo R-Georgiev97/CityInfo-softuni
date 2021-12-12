@@ -161,4 +161,17 @@ public class ObjectServiceImpl implements ObjectService {
         ratingService.store(rate,object);
     }
 
+    @Override
+    @Transactional
+    public List<ObjectViewModel> getAllApproved() {
+        return objectRepository.findAllByApproved(true)
+                .stream()
+                .map(object -> {
+                    ObjectViewModel objectViewModel = modelMapper.map(object, ObjectViewModel.class);
+                    objectViewModel.setCityName(object.getCity().getName());
+                    objectViewModel.setCategoryName(object.getCategory().getName());
+                    return objectViewModel;
+                })
+                .collect(Collectors.toList());
+    }
 }

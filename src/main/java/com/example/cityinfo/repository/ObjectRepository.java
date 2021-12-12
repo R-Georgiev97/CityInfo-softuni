@@ -13,4 +13,6 @@ public interface ObjectRepository extends JpaRepository<Object,Long> {
     List<Object> findTop5ByApprovedOrderByIdDesc(@Param("approved") Boolean approved);
 
     List<Object> findAllByApprovedOrderById(@Param("approved") Boolean approved);
+
+    List<Object>findAllByApproved(@Param("approved") Boolean approved);
 }

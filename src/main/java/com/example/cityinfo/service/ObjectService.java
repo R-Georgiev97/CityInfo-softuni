@@ -15,6 +15,8 @@ public interface ObjectService {
 
     List<ObjectViewModel>  getAllNotApproved();
 
+    List<ObjectViewModel> getAllApproved();
+
     void approveObject(Long id) throws Exception;
 
     ObjectViewModel getById(Long id) throws Exception;
@@ -22,4 +24,6 @@ public interface ObjectService {
     void update(ObjectEditBindingModel objetEditBindingModel, Map<String,String> requestParams) throws Exception;
 
     void rate(Long objectId,Integer rate) throws Exception;
+
+
 }
