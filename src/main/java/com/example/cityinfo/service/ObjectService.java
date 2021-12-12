@@ -2,6 +2,7 @@ package com.example.cityinfo.service;
 
 import com.example.cityinfo.model.binding.ObjectBindingModel;
 import com.example.cityinfo.model.binding.ObjectEditBindingModel;
+import com.example.cityinfo.model.entity.Object;
 import com.example.cityinfo.model.view.ObjectViewModel;
 
 import java.util.List;
@@ -25,5 +26,5 @@ public interface ObjectService {
 
     void rate(Long objectId,Integer rate) throws Exception;
 
-
+    List<Object> getAllApprovedRaw();
 }

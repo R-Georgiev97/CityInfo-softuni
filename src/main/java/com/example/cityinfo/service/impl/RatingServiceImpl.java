@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RatingServiceImpl implements RatingService {
 
@@ -46,5 +48,10 @@ public class RatingServiceImpl implements RatingService {
         User user = userService.getByUsername(username);
 
         return ratingRepository.existsByObjectAndUser(object,user);
+    }
+
+    @Override
+    public List<Rating> getAllByObject(Object object) {
+        return ratingRepository.findAllByObject(object);
     }
 }

@@ -174,4 +174,9 @@ public class ObjectServiceImpl implements ObjectService {
                 })
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Object> getAllApprovedRaw() {
+        return objectRepository.findAllByApproved(true);
+    }
 }
