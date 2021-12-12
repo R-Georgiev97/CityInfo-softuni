@@ -98,9 +98,9 @@ $(document).ready(function () {
 
     //ADMIN OBJECTS
 
-    $('.js-approve-object').on('click',function (e){
+    $('.js-approve-object').on('click', function (e) {
         let btn = $(this)
-        let objectId =  btn.data('object_id')
+        let objectId = btn.data('object_id')
         Swal.fire({
             title: 'Сигурен ли си?',
             text: "След като обектът бъде одобрен ще бъде видим за всички потребители",
@@ -112,12 +112,40 @@ $(document).ready(function () {
             confirmButtonText: 'Одобри'
         }).then((result) => {
             if (result.isConfirmed) {
-                ajaxPost('/api/objects/approve?object_id='+objectId,{}, (response)=>{
+                ajaxPost('/api/objects/approve?object_id=' + objectId, {}, (response) => {
                     swalSuccess()
                     btn.parents('tr').remove()
                 })
             }
         })
+    })
+
+    $('.js-add-comment-form').on('submit', function (e) {
+        e.preventDefault()
+        if ($(this).find('textarea#content').val().length < 4) {
+            swalError('Не може да добавите празен коментар')
+        } else {
+            $(this).unbind('submit').submit()
+        }
+    })
+    showObjectRating()
+
+    $('.js-object-rating').on('click',function (e){
+        let parent = $('.js-rating-holder')
+        let canRate = parent.data('can_rate')
+        let objectId = parent.data('object_id')
+        let rate = $(this).data('rate')
+        if (rate ===0){
+            swalError('Моля влезте в ситемата за да гласувате')
+        }else {
+            if (canRate) {
+                ajaxPost("/api/rating?object_id="+objectId + '&rate='+rate,{},function (response) {
+                    swalSuccess("Вие дадохте оценка "+ rate + " за този обект")
+                })
+            } else {
+                swalError('Вече сте дали рейтинг')
+            }
+        }
     })
 
     //END OBJECTS
@@ -174,6 +202,42 @@ function getCategoryFieldInput(field) {
         .attr('placeholder', field.name)
 
     return fieldHolder;
+}
+
+function showObjectRating() {
+    let ratingHolder = $('.js-rating-holder')
+    if (ratingHolder) {
+        let rating = ratingHolder.data('average_rating')
+        switch (true) {
+            case (rating === 0):
+                break
+            case (rating > 0 && rating <= 1) :
+                ratingHolder.find('.js-rate-1').addClass('checked')
+                break
+            case (rating > 1 && rating <= 2) :
+                ratingHolder.find('.js-rate-1').addClass('checked')
+                ratingHolder.find('.js-rate-2').addClass('checked')
+                break
+            case (rating > 2 && rating <= 3) :
+                ratingHolder.find('.js-rate-1').addClass('checked')
+                ratingHolder.find('.js-rate-2').addClass('checked')
+                ratingHolder.find('.js-rate-3').addClass('checked')
+                break
+            case (rating > 3 && rating <= 4) :
+                ratingHolder.find('.js-rate-1').addClass('checked')
+                ratingHolder.find('.js-rate-2').addClass('checked')
+                ratingHolder.find('.js-rate-3').addClass('checked')
+                ratingHolder.find('.js-rate-4').addClass('checked')
+                break
+            case (rating > 4 && rating <= 5) :
+                ratingHolder.find('.js-rate-1').addClass('checked')
+                ratingHolder.find('.js-rate-2').addClass('checked')
+                ratingHolder.find('.js-rate-3').addClass('checked')
+                ratingHolder.find('.js-rate-4').addClass('checked')
+                ratingHolder.find('.js-rate-5').addClass('checked')
+                break
+        }
+    }
 }
 
 

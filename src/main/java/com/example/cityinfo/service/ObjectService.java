@@ -20,4 +20,6 @@ public interface ObjectService {
     ObjectViewModel getById(Long id) throws Exception;
 
     void update(ObjectEditBindingModel objetEditBindingModel, Map<String,String> requestParams) throws Exception;
+
+    void rate(Long objectId,Integer rate) throws Exception;
 }

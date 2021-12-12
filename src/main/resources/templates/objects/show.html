@@ -40,21 +40,69 @@
                 <div class="col-md-8">
                     <h4>Коментари</h4>
                 </div>
-                <div class="col-md-4 d-flex justify-content-end" data-toggle="tooltip" data-placement="top"
-                     th:title="*{averageRating}">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+                <div class="col-md-4 d-flex justify-content-end js-rating-holder" data-toggle="tooltip"
+                     th:attrdata-placement="top"
+                     th:title="*{averageRating}"
+                     th:attr="data-average_rating=*{averageRating},data-object_id=*{id},data-can_rate=*{!rated}"
+                >
+
+                    <div sec:authorize="isAuthenticated()">
+                        <span class="fa fa-star js-object-rating js-rate-1"
+                          data-rate="1"></span>
+                        <span class="fa fa-star js-object-rating js-rate-2"
+                              data-rate="2"></span>
+                        <span class="fa fa-star js-object-rating js-rate-3"
+                              data-rate="3"></span>
+                        <span class="fa fa-star js-object-rating js-rate-4"
+                              data-rate="4"></span>
+                        <span class="fa fa-star js-object-rating js-rate-5"
+                              data-rate="5"></span>
+                    </div>
+
+                    <div sec:authorize="!isAuthenticated()">
+                        <span class="fa fa-star js-object-rating js-rate-1"
+                              data-rate="0"></span>
+                        <span class="fa fa-star js-object-rating js-rate-2"
+                              data-rate="0"></span>
+                        <span class="fa fa-star js-object-rating js-rate-3"
+                              data-rate="0"></span>
+                        <span class="fa fa-star js-object-rating js-rate-4"
+                              data-rate="0"></span>
+                        <span class="fa fa-star js-object-rating js-rate-5"
+                              data-rate="0"></span>
+                    </div>
+
                 </div>
             </div>
-            <article class="comment card p-2">
+            <div class="row" sec:authorize="isAuthenticated()">
+                <form th:action="@{/comments}"
+                      th:method="POST"
+                      class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center js-add-comment-form">
+                    <div class="mb-1 row">
+                        <label for="content" class="font-weight-bold">Добави коментар</label>
+                        <textarea
+                                class="form-control " id="content" rows="3" name="content">
+                         </textarea>
+
+                    </div>
+                    <input type="hidden" name="objectId" th:value="*{id}">
+                    <div class="row d-flex justify-content-end">
+                        <div class="col col-md-4">
+                            <div class="button-holder d-flex">
+                                <input type="submit" class="btn btn-sm btn-info" value="Добави коментар"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <article class="comment card p-2 ml-auto mr-auto col-md-10 mt-2" th:each="comment : *{comments}">
                 <div class="comment-body цард">
                     <div class="text">
-                        <p>Секцията за коментари и рейтинг са все още в разработка</p>
+                        <p th:text="${comment.content}"></p>
                     </div>
-                    <p class="attribution mb-0">от <i>Радостин Георгиев</i></p>
+                    <p class="attribution mb-0">от <i th:text="${comment.author}">Радостин Георгиев</i><i
+                            th:text="${comment.created}"></i></p>
                 </div>
             </article>
         </div>

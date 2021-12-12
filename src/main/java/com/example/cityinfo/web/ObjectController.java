@@ -4,6 +4,7 @@ import com.example.cityinfo.model.binding.CityBindingModel;
 import com.example.cityinfo.model.binding.ObjectBindingModel;
 import com.example.cityinfo.model.binding.ObjectEditBindingModel;
 import com.example.cityinfo.model.view.CategoryNameAndSlugView;
+import com.example.cityinfo.model.view.CommentViewModel;
 import com.example.cityinfo.model.view.ObjectViewModel;
 import com.example.cityinfo.service.CategoryService;
 import com.example.cityinfo.service.CityService;

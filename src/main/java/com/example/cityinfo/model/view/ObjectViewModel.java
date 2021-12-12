@@ -15,6 +15,8 @@ public class ObjectViewModel {
     private List<ObjectData> fields;
     private Double averageRating;
     private Boolean canBeEdited;
+    private List<CommentViewModel> comments;
+    private Boolean rated;
 
     public Long getId() {
         return id;
@@ -88,4 +90,19 @@ public class ObjectViewModel {
         this.canBeEdited = canBeEdited;
     }
 
+    public List<CommentViewModel> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentViewModel> comments) {
+        this.comments = comments;
+    }
+
+    public Boolean getRated() {
+        return rated;
+    }
+
+    public void setRated(Boolean rated) {
+        this.rated = rated;
+    }
 }

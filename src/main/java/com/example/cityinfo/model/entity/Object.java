@@ -27,6 +27,7 @@ public class Object extends BaseEntity {
     private LocalDateTime deletedAt;
     private City city;
     private User user;
+    private List<Comment> comments;
 
     public Object() {
     }
@@ -129,6 +130,15 @@ public class Object extends BaseEntity {
 
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+    }
+
+    @OneToMany(mappedBy = "object")
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public boolean canBeEdited() {

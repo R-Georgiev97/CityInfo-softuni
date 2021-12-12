@@ -27,4 +27,13 @@ public class ApiObjectController {
         return new ResponseEntity<>(
                 HttpStatus.OK);
     }
+
+    @PostMapping("/rating")
+    public ResponseEntity<String> rateObject(@RequestParam("object_id") Long objectId,
+                                             @RequestParam("rate") Integer rate) throws Exception {
+        objectService.rate(objectId, rate);
+        return new ResponseEntity<>(
+                HttpStatus.OK);
+    }
+
 }
