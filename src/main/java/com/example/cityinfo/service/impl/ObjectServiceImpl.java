@@ -59,6 +59,11 @@ public class ObjectServiceImpl implements ObjectService {
 
     }
 
+    @Override
+    public void destroy(Long id) {
+        objectRepository.deleteById(id);
+    }
+
 
     private void storeObjectData(Map<String, String> requestParams, Object object) {
         for (var entry : requestParams.entrySet()) {
@@ -89,6 +94,7 @@ public class ObjectServiceImpl implements ObjectService {
     }
 
     @Override
+    @Transactional
     public List<ObjectViewModel> getAllNotApproved() {
         return objectRepository.findAllByApprovedOrderById(false)
                 .stream()

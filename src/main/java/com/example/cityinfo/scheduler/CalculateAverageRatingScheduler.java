@@ -26,7 +26,6 @@ public class CalculateAverageRatingScheduler {
 
     @Scheduled(fixedRate = 60 * 60 * 1000, initialDelay = 10 * 60 * 1000)
     public void calculateAverageRating() {
-        System.out.println("schechule");
         List<Object> objects = objectService.getAllApprovedRaw();
         objects.forEach(object -> {
             Double averageRating = calculate(object);

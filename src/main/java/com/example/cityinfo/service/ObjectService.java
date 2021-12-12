@@ -12,6 +12,8 @@ public interface ObjectService {
 
     void store(ObjectBindingModel objectBindingModel, Map<String,String> requestParams);
 
+    void destroy(Long id);
+
     List<ObjectViewModel> getLastApprovedObjects();
 
     List<ObjectViewModel>  getAllNotApproved();
