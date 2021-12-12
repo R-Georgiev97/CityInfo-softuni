@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="partials/commons::head"></head>
+<body>
+<header th:replace="partials/commons::nav"></header>
+<main role="main">
+  <div class="text-center text-secondary">
+    <h2>Добре дошли в CityInfo</h2>
+    <h4>Това е платформа от хора за хора</h4>
+  </div>
+
+  <div class="card text-white bg-primary col-mb-8 mt-2 ml-2 mr-2">
+    <div class="card-header">Вие сте нов в града?</div>
+    <div class="card-body">
+      <h5 class="card-title">Търсите добър сервиз например?</h5>
+      <p class="card-text">Имате нужда да намерите нещо конкретно и да останете доволни, но не знаете къде да отидете? Тази платформа е точно за вас! </p>
+    </div>
+  </div>
+
+  <div class="card text-white bg-success col-mb-8 mt-2 ml-2 mr-2" >
+    <div class="card-header">Всички обекти в града на едно място</div>
+    <div class="card-body">
+      <h5 class="card-title">От обекти до услуги</h5>
+      <p class="card-text">Не зависимо дали търсите някой магазин, сервиз, медицинска помощ или някоя друга услуга ... Тук може да намерите всичко, което търсите</p>
+    </div>
+  </div>
+
+  <div class="card text-white bg-info col-mb-8 mt-2 ml-2 mr-2">
+    <div class="card-header">Вижте мнението и на другите</div>
+    <div class="card-body">
+      <h5 class="card-title">Не манипулирани коментари и рейтинг</h5>
+      <p class="card-text">Всички коментари и рейтинги са актуални и Вие може реално да си направите преценка за даденият обект! Този път няма да ви ограбят в сервиза и да ви развалят колата, а този "доктор" няма да ви ползва за касичка!</p>
+    </div>
+  </div>
+
+</main>
+<footer th:replace="partials/commons::footer">
+</footer>
+</body>
+</html>
