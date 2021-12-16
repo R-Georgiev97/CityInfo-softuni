@@ -8,7 +8,7 @@
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
         <div class="container">
-            <h2 class="text-center">Логин</h2>
+            <h2 class="text-center">Вход</h2>
             <form method="post"
                   th:action="@{/login}"
                   class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
@@ -36,10 +36,10 @@
                     Невалидно име или парола!
                 </p>
 
-                <div class="row">
-                    <div class="col col-md-4">
+                <div class="row d-flex justify-content-center mt-2">
+                    <div class="col col-md-4 d-flex justify-content-center">
                         <div class="button-holder d-flex">
-                            <input type="submit" class="btn btn-info btn-lg" value="Логин"/>
+                            <input type="submit" class="btn btn-info btn-lg" value="Влез"/>
                         </div>
                     </div>
                 </div>

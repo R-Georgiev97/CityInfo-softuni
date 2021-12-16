@@ -6,11 +6,13 @@
 <body>
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
-
+    <div class="alert alert-warning text-center" role="alert">
+        Очаквайте скоро филтриране по град и категория!
+    </div>
     <!--    TODO make filter by category and city-->
     <!--    TODO pagination-->
     <div class="row col-md-12 d-flex justify-content-end" sec:authorize="isAuthenticated()">
-        <div class="card-link float-right mt-2 mr-2">
+        <div class="card-link text-end mt-2 mr-2">
             <button type="button" class="btn btn-sm btn-outline-primary">
                 <a class="nav-link" href="/objects/create">Добави обект</a>
             </button>

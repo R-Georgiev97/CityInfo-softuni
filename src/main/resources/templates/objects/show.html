@@ -7,7 +7,7 @@
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
 
-    <div class="container object-container" th:object="${object}">
+    <div class="container object-container ps-3 pe-3" th:object="${object}">
         <div class="header pt-2 d-flex justify-content-center">
             <h1 class="text-center" th:text="*{name}">
             </h1>
@@ -34,7 +34,7 @@
         </div>
 
         <hr/>
-        <div class="comments">
+        <div class="comments col-md-10 mx-auto">
             <div class="d-flex justify-content-between">
                 <div class="col-md-8">
                     <h4>Коментари</h4>
@@ -76,13 +76,13 @@
             <div class="row" sec:authorize="isAuthenticated()">
                 <form th:action="@{/comments}"
                       th:method="POST"
-                      class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center js-add-comment-form">
-                    <div class="mb-1 row form-floating">
+                      class="main-form mx-auto col-md-12 d-flex flex-column justify-content-center js-add-comment-form">
+                    <div class="form-floating">
                         <textarea class="form-control " id="content" style="height: 100px" name="content"></textarea>
                         <label for="content">Редакция</label>
                     </div>
                     <input type="hidden" name="objectId" th:value="*{id}">
-                    <div class="row d-flex justify-content-end">
+                    <div class="row d-flex justify-content-end mt-2">
                         <div class="col col-md-4">
                             <div class="button-holder d-flex justify-content-end">
                                 <input type="submit" class="btn btn-sm btn-info" value="Добави коментар"/>
@@ -92,7 +92,7 @@
                 </form>
             </div>
 
-            <article class="comment card mx-auto mr-auto col-md-10 mt-2" th:each="comment : *{comments}">
+            <article class="comment card mx-auto mr-auto col-md-12 mt-2" th:each="comment : *{comments}">
                 <div class="comment-body card">
                     <div class="text pt-2 px-2">
                         <p th:text="${comment.content}" th:class="comment- + ${comment.id}"></p>

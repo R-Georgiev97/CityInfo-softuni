@@ -6,7 +6,13 @@
 <body>
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
-    <a class="nav-link" href="/admin/categories/create">Добави категория</a>
+    <div class="row col-md-8 mx-auto d-flex justify-content-end">
+        <div class="card-link text-end mt-2 mr-2">
+            <button type="button" class="btn btn-sm btn-outline-primary">
+                <a class="nav-link" href="/admin/categories/create">Добави категория</a>
+            </button>
+        </div>
+    </div>
     <div class="container col-md-8 border-dark">
         <h1>Категории</h1>
 
@@ -15,7 +21,7 @@
             <tr>
                 <th scope="col">Категория</th>
                 <th scope="col">Слъг</th>
-                <th scope="col">Опции</th>
+                <th scope="col" class="text-end">Опции</th>
             </tr>
             </thead>
             <tbody class="table-hover">

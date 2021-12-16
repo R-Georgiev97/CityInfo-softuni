@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:fragment="object-fields">
     <div class="row form-group">
-        <div class="col-md-6 p-0 pr-2">
+        <div class="col-md-6 p-0 pe-2">
             <label for="name" class="font-weight-bold">Обект</label>
             <input th:field="*{name}" th:errorclass="is-invalid" name="name"
                    id="name" class="form-control"
@@ -14,9 +14,9 @@
                 Полето трябва да е между 4 и 15 символа.
             </p>
         </div>
-        <div class="col-md-6 p-0 pl-2">
+        <div class="col-md-6 p-0 ps-2">
             <label class="text-center font-weight-bold" for="cityId">Град</label>
-            <select th:errorclass="is-invalid" id="cityId" name="cityId" class="form-control p-0">
+            <select th:errorclass="is-invalid" id="cityId" name="cityId" class="form-control">
                 <option th:each="city : ${cities}"
                         th:text="${city.name}" th:value="${city.id}" th:selected="${city.id} == *{cityId}"
                 >
@@ -34,17 +34,17 @@
         </p>
     </div>
     <div class="row form-group">
-        <div class="col-md-6 p-0 pr-2">
+        <div class="col-md-6 p-0 pe-2">
             <label class="text-center font-weight-bold" for="status">Статус</label>
-            <select th:errorclass="is-invalid" id="status" name="status" class="form-control p-0">
+            <select th:errorclass="is-invalid" id="status" name="status" class="form-control ">
                 <option value="1">Активен</option>
                 <option value="0">Неактивен</option>
             </select>
         </div>
-        <div class="col-md-6 p-0 pl-2">
+        <div class="col-md-6 p-0 ps-2">
             <label class="text-center font-weight-bold" for="categorySlug">Категория</label>
             <select th:errorclass="is-invalid" id="categorySlug" name="categorySlug"
-                    class="form-control p-0 js-object-category">
+                    class="form-control  js-object-category">
                 <option value="not-selected" class="js-not-selected-option">Моля изберете категория</option>
                 <option th:each="category : ${categories}"
                         th:text="${category.name}" th:value="${category.slug}"
@@ -64,8 +64,8 @@
     </div>
 
 
-    <div class="row d-flex justify-content-between">
-        <div class="col col-md-4">
+    <div class="row d-flex justify-content-between mt-2">
+        <div class="col col-md-4 p-0">
             <div class="button-holder d-flex">
                 <input type="submit" class="btn btn-info btn-lg" value="Запази" disabled/>
             </div>

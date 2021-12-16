@@ -9,6 +9,10 @@ import com.example.cityinfo.model.view.ObjectViewModel;
 import com.example.cityinfo.service.CategoryService;
 import com.example.cityinfo.service.CityService;
 import com.example.cityinfo.service.ObjectService;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,6 +58,11 @@ public class ObjectController {
 
     @GetMapping("/create")
     public String create(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if ((auth instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/";
+        }
         List<CityBindingModel> cities = cityService.getAllCities();
         List<CategoryNameAndSlugView> categories = categoryService.getAllCategories();
         model.addAttribute("cities",cities);
