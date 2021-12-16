@@ -34,7 +34,7 @@ export function ajaxDelete(url) {
             "Content-Type": "application/json"
         },
         success: function (result) {
-            swalSuccess("Deleted")
+            swalSuccess("Изтрито")
         },
         error: function (e) {
             swalError()

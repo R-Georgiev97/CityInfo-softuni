@@ -28,7 +28,7 @@ $(document).ready(function () {
     //END ADMIN CATEGORIES
 
     //ADMIN USERS
-
+    //delete user
     $('.js-users-del').on('click', function () {
         let userId = $(this).data('user_id')
 
@@ -52,7 +52,7 @@ $(document).ready(function () {
     //END ADMIN USERS
 
     //ADMIN CITIEs
-
+    //delete city
     $('.js-city_del').on('click', function () {
         let cityId = $(this).data('city_id')
         confirmAndDelete("/admin/cities/" + cityId)
@@ -120,7 +120,7 @@ $(document).ready(function () {
             }
         })
     })
-
+    //Add comment
     $('.js-add-comment-form').on('submit', function (e) {
         e.preventDefault()
         if ($(this).find('textarea#content').val().length < 4) {
@@ -130,45 +130,64 @@ $(document).ready(function () {
         }
     })
     showObjectRating()
-
-    $('.js-object-rating').on('click',function (e){
+    //Rate
+    $('.js-object-rating').on('click', function (e) {
         let parent = $('.js-rating-holder')
         let canRate = parent.data('can_rate')
         let objectId = parent.data('object_id')
         let rate = $(this).data('rate')
-        if (rate ===0){
+        if (rate === 0) {
             swalError('Моля влезте в ситемата за да гласувате')
-        }else {
+        } else {
             if (canRate) {
-                ajaxPost("/api/rating?object_id="+objectId + '&rate='+rate,{},function (response) {
-                    swalSuccess("Вие дадохте оценка "+ rate + " за този обект")
+                ajaxPost("/api/rating?object_id=" + objectId + '&rate=' + rate, {}, function (response) {
+                    swalSuccess("Вие дадохте оценка " + rate + " за този обект")
                 })
             } else {
                 swalError('Вече сте дали рейтинг')
             }
         }
     })
-
-    $('.js-comments-edit-modal-btn').on('click', function (e){
+    //Trigger comment edit modal and set content in edit textarea
+    $('.js-comments-edit-modal-btn').on('click', function (e) {
         let commentId = $(this).data('comment_id')
         let content = $(this).data('comment_content').trim()
         $("#editCommentDialog").find('textarea').val(content)
-        $('.js-edit-comment').data('comment_id',commentId)
+        $('.js-edit-comment').data('comment_id', commentId)
     })
-
-    $('.js-edit-comment').on('click',function (e){
+    //Edit comment action
+    $('.js-edit-comment').on('click', function (e) {
         let commentId = $(this).data('comment_id')
         let content = $(this).parents('.modal-dialog').find('#edit_content').val()
 
-        if (content.length <=4 ){
+        if (content.length <= 4) {
             swalError("Коментара не може да е по кратък от 4 символа!")
             return;
         }
-        ajaxPost("/api/comments?comment_id="+commentId+"&content="+content,{},function (response){
+        ajaxPost("/api/comments?comment_id=" + commentId + "&content=" + content, {}, function (response) {
             swalSuccess("Коментарът беше редактиран")
-            $('.comment-'+commentId).text(content)
+            $('.comment-' + commentId).text(content)
             $("#editCommentDialog").modal('hide')
 
+        })
+    })
+    $('.js-delete-comment').on('click', function (e){
+        let commentId = $(this).data('comment_id')
+
+        Swal.fire({
+            title: 'Сигурен ли си?',
+            text: "Искаш ли коментара да бъде изтрит?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Отказ',
+            confirmButtonText: 'Изтрии'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                ajaxDelete("/api/comments/" + commentId)
+                $(this).parents("article").remove()
+            }
         })
     })
 

@@ -113,15 +113,9 @@
                                     </button>
                                 </div>
                                 <div class="col-md-6">
-                                    <form th:action="@{/comments/{id}(id=*{id})}" th:method="delete"
-                                          data-toggle="tooltip"
-                                          data-placement="top"
-                                          title="Изтрии"
-                                          class="js-comments-delete">
-                                        <button type="submit" class="btn btn-link text-danger">
+                                        <button type="button" class="btn btn-link text-danger js-delete-comment" th:attr="data-comment_id=${comment.id}">
                                             Изтрии
                                         </button>
-                                    </form>
                                 </div>
                             </div>
                         </th:block>

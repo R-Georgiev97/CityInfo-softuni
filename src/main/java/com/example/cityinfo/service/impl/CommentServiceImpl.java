@@ -67,6 +67,11 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
     }
 
+    @Override
+    public void destroy(Long id) {
+        commentRepository.deleteById(id);
+    }
+
     private String getAuthUsername() {
         String username = "";
         java.lang.Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

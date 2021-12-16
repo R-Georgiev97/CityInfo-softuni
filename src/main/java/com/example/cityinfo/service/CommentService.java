@@ -13,4 +13,6 @@ public interface CommentService {
     List<CommentViewModel> parseComments(List<Comment> comments);
 
     void update(Long id,String content) throws Exception;
+
+    void destroy(Long id);
 }
