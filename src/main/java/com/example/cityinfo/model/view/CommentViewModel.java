@@ -5,6 +5,8 @@ public class CommentViewModel {
     private String content;
     private String author;
     private String created;
+    private Boolean canEdit;
+    private Boolean isUserAdmin;
 
     public Long getId() {
         return id;
@@ -38,7 +40,19 @@ public class CommentViewModel {
         this.created = created;
     }
 
-    public Boolean canEdit(){
-        return true;
+    public Boolean getCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(Boolean canEdit) {
+        this.canEdit = canEdit;
+    }
+
+    public Boolean getUserAdmin() {
+        return isUserAdmin;
+    }
+
+    public void setUserAdmin(Boolean userAdmin) {
+        isUserAdmin = userAdmin;
     }
 }

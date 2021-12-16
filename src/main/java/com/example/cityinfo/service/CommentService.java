@@ -11,4 +11,6 @@ public interface CommentService {
     void store(CommentBindingModel commentBindingModel);
 
     List<CommentViewModel> parseComments(List<Comment> comments);
+
+    void update(Long id,String content) throws Exception;
 }

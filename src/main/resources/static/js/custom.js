@@ -1,6 +1,7 @@
 import {ajaxDelete, ajaxGet, ajaxPost} from "./ajax.js";
 import {swalError, swalSuccess} from "./sweet_alert.js";
 
+
 $(document).ready(function () {
     //ADMIN CATEGORIES
     //add category field
@@ -63,7 +64,7 @@ $(document).ready(function () {
 
 
     //OBJECTS
-
+    //GET FIELDS BY CATEGORY
     $('.js-object-category').on('change', function () {
         let categorySlug = $(this).find('option:selected').val();
         let fieldsContainer = $('.js-object-fields');
@@ -78,7 +79,7 @@ $(document).ready(function () {
         $(this).find('.js-not-selected-option').attr('disabled', 'disabled');
         $('.js-object-create-form').find('input[type="submit"]').removeAttr('disabled')
     })
-
+    //CREATE OBJECT VALIDATION
     $('.js-object-create-form').on('submit', function (e) {
         e.preventDefault()
         let error = false;
@@ -97,7 +98,7 @@ $(document).ready(function () {
     })
 
     //ADMIN OBJECTS
-
+    //APPROVE OBJECT
     $('.js-approve-object').on('click', function (e) {
         let btn = $(this)
         let objectId = btn.data('object_id')
@@ -146,6 +147,29 @@ $(document).ready(function () {
                 swalError('Вече сте дали рейтинг')
             }
         }
+    })
+
+    $('.js-comments-edit-modal-btn').on('click', function (e){
+        let commentId = $(this).data('comment_id')
+        let content = $(this).data('comment_content').trim()
+        $("#editCommentDialog").find('textarea').val(content)
+        $('.js-edit-comment').data('comment_id',commentId)
+    })
+
+    $('.js-edit-comment').on('click',function (e){
+        let commentId = $(this).data('comment_id')
+        let content = $(this).parents('.modal-dialog').find('#edit_content').val()
+
+        if (content.length <=4 ){
+            swalError("Коментара не може да е по кратък от 4 символа!")
+            return;
+        }
+        ajaxPost("/api/comments?comment_id="+commentId+"&content="+content,{},function (response){
+            swalSuccess("Коментарът беше редактиран")
+            $('.comment-'+commentId).text(content)
+            $("#editCommentDialog").modal('hide')
+
+        })
     })
 
     //END OBJECTS
