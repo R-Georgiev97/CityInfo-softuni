@@ -89,7 +89,7 @@ public class ObjectController {
 
         objectService.store(objectBindingModel, allRequestParams);
 
-        return "objects/index";
+        return "redirect:/objects/index";
     }
 
     @GetMapping("/{id}/edit")

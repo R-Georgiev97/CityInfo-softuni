@@ -19,7 +19,6 @@ import javax.validation.Valid;
 @RequestMapping("/admin/users")
 public class UserController {
 
-    static final String TEMPLATE_DIRECTORY = "admin/users";
 
     private final UserService userService;
 
@@ -30,7 +29,7 @@ public class UserController {
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("users", userService.getAllUsersWithRoles());
-        return TEMPLATE_DIRECTORY + "/index";
+        return "/admin/users/index";
     }
 
     @ModelAttribute("userEditBindingModel")
@@ -42,7 +41,7 @@ public class UserController {
     public String edit(@PathVariable Long id, Model model) throws Exception {
         UserEditBindingModel userEditBindingModel = userService.getUserEditBindingModel(id);
         model.addAttribute("userEditBindingModel", userEditBindingModel);
-        return TEMPLATE_DIRECTORY + "/edit";
+        return "/admin/users/edit";
     }
 
     @PutMapping("/{id}/edit")
@@ -54,11 +53,11 @@ public class UserController {
             System.out.println("errors " + bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("userEditBindingModel", userEditBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userEditBindingModel", bindingResult);
-            return "redirect:/" + TEMPLATE_DIRECTORY + "/" + userEditBindingModel.getId() + "/edit";
+            return "redirect://admin/users/"+ userEditBindingModel.getId() + "/edit";
         }
 
         userService.update(userEditBindingModel);
-        return "redirect:/" + TEMPLATE_DIRECTORY;
+        return "redirect:/admin/users";
     }
 
     @PostMapping(value = "/{id}/delete", consumes = "application/json", produces = "application/json")

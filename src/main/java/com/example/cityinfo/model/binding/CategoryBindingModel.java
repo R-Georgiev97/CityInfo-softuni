@@ -7,13 +7,13 @@ import java.util.List;
 public class CategoryBindingModel {
     private Long id;
     @NotNull
-    @Size(min=4, max=20)
+    @Size(min=4, max=30)
     private String name;
     @NotNull
     @Size(min=4, max=20)
     private String slug;
     @NotNull
-    @Size(min=4, max=20)
+    @Size(min=4)
     private String description;
     private String[] fieldNames;
     private String[] fieldSlugs;

@@ -18,7 +18,6 @@ import javax.validation.Valid;
 @RequestMapping("/admin/cities")
 public class CityController {
 
-    static final String TEMPLATE_DIRECTORY = "admin/cities";
     private final CityService cityService;
 
     public CityController(CityService cityService) {
@@ -28,13 +27,13 @@ public class CityController {
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("cities", cityService.getAllCities());
-        return TEMPLATE_DIRECTORY + "/index";
+        return  "/admin/cities/index";
     }
 
     @GetMapping("/create")
     public String create(Model model){
         model.addAttribute("cityBindingModel", new CityBindingModel());
-        return  TEMPLATE_DIRECTORY + "/create";
+        return  "/admin/cities/create";
     }
 
 
@@ -47,11 +46,11 @@ public class CityController {
 
             redirectAttributes.addFlashAttribute("cityBindingModel", cityBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.cityBindingModel", bindingResult);
-            return "redirect:/" + TEMPLATE_DIRECTORY + "/create";
+            return "redirect:/admin/cities/create";
         }
 
         cityService.store(cityBindingModel);
-        return "redirect:/" + TEMPLATE_DIRECTORY;
+        return "redirect:/admin/cities";
     }
 
     @DeleteMapping(value = "/{id}", consumes = "application/json", produces = "application/json")

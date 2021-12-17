@@ -5,7 +5,13 @@
 <body>
 <header th:replace="partials/commons::nav"></header>
 <main role="main">
-    <a class="nav-link" href="/admin/cities/create">Добави град</a>
+    <div class="row col-md-8 mx-auto d-flex justify-content-end">
+        <div class="card-link text-end mt-2 mr-2">
+            <button type="button" class="btn btn-sm btn-outline-primary">
+                <a class="nav-link" href="/admin/cities/create">Добави град</a>
+            </button>
+        </div>
+    </div>
     <div class="container col-md-8 border-dark">
         <h1>Градове</h1>
 
